@@ -1,6 +1,6 @@
 {
   "mappings": [
-    "/content/vplates-dmeo/:/",
+    "/content/vplates-demo/:/",
     "/content/vplates-demo/configuration:/.helix/config.json",
     "/content/vplates-demo/metadata:/metadata.json"
   ],
