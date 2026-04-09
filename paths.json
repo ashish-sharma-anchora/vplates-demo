@@ -1,8 +1,10 @@
 {
   "mappings": [
-    "/content/aem-boilerplate/:/"
+    "/content/vplates-dmeo/:/",
+    "/content/vplates-demo/configuration:/.helix/config.json",
+    "/content/vplates-demo/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/aem-boilerplate/"
+    "/content/vplates-demo/"
   ]
 }
