@@ -1,4 +1,10 @@
 /* Hero Plate Checker — VPlates homepage hero */
+
+/* Original CSS reference (from vplates.com.au):
+   - Default: max-width 1620px, padding 50px 25px 93px, flex-direction column
+   - 769px+: flex-direction row, form width calc(100% - 420px), preview width 400px
+   - 1080px+: container width 920px centered, form width 500px, title 60px, input 60px
+*/
 .hero-plate-checker-container {
   background-color: var(--color-black);
   color: var(--color-white);
@@ -9,43 +15,84 @@
   padding: 0;
 }
 
+/* Mobile: single column, full width */
 .hero-plate-checker {
   display: flex;
   flex-direction: column;
-  max-width: var(--content-wide-max-width);
+  max-width: 1620px;
   margin: 0 auto;
-  padding: 40px var(--spacing-xl);
-  gap: var(--spacing-xxl);
+  padding: 50px 25px 93px;
+  gap: 20px;
+  position: relative;
+  min-height: calc(100vh - 60px);
 }
 
+/* Tablet (769px+): two-column layout */
 @media (width >= 769px) {
   .hero-plate-checker {
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 50px 32px 40px;
+    flex-flow: row wrap;
+    min-height: calc(100vh - 190px);
+  }
+
+  .hero-plate-checker-form {
+    width: calc(100% - 420px);
+    margin-right: 20px;
+  }
+
+  .hero-plate-checker-preview {
+    width: 400px;
+  }
+}
+
+/* Desktop (1080px+): fixed 920px centered container */
+@media (width >= 1080px) {
+  .hero-plate-checker {
+    padding-left: 0;
+    padding-right: 0;
+    width: 920px;
+    min-height: calc(100vh - 250px);
+  }
+
+  .hero-plate-checker-form {
+    width: 500px;
+  }
+
+  .hero-plate-checker-title {
+    font-size: 60px;
+    max-width: 500px;
+  }
+
+  .hero-plate-checker-plate-text {
+    font-size: 60px;
+    max-width: 340px;
+  }
+
+  .hero-plate-checker-input-group {
+    max-width: 340px;
   }
 }
 
 /* Form column (left) */
 .hero-plate-checker-form {
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .hero-plate-checker-title {
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-xxl);
+  font-size: 40px;
   font-weight: 700;
-  line-height: 1.14;
-  letter-spacing: -0.9px;
+  line-height: 1;
+  letter-spacing: 1px;
   color: var(--color-white);
-  margin: 0 0 var(--spacing-l) 0;
+  margin: 0;
+  display: inline;
 }
 
 /* Vehicle type toggle (Car | Motorbike) */
 .hero-plate-checker-vehicles {
   display: flex;
-  gap: var(--spacing-m);
-  margin-bottom: var(--spacing-l);
+  align-items: center;
+  margin-top: 40px;
 }
 
 .hero-plate-checker-vehicle-btn {
@@ -53,53 +100,67 @@
   border: none;
   color: var(--color-brand-green);
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs);
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 0;
+  line-height: 1;
+  padding: 0 0 6px;
   cursor: pointer;
   position: relative;
-  letter-spacing: 1px;
+  border-bottom: 2px solid transparent;
+}
+
+.hero-plate-checker-vehicle-btn:first-child {
+  margin-right: 8px;
+  padding-right: 8px;
+}
+
+/* Green separator between vehicle types */
+.hero-plate-checker-vehicle-btn:first-child::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: 0;
+  bottom: 8px;
+  width: 2px;
+  background-color: var(--color-brand-green);
 }
 
 .hero-plate-checker-vehicle-btn.active {
   color: var(--color-brand-green);
-}
-
-.hero-plate-checker-vehicle-btn.active::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-brand-green);
+  border-bottom-color: var(--color-brand-green);
 }
 
 .hero-plate-checker-vehicle-btn:not(.active) {
-  color: var(--color-white);
-  opacity: 0.7;
+  color: var(--color-brand-green);
 }
 
-/* Plate text display (large plate font) */
+.hero-plate-checker-vehicle-btn:hover,
+.hero-plate-checker-vehicle-btn:focus {
+  color: var(--color-white);
+}
+
+/* Plate text display (large plate font — acts as the input display) */
 .hero-plate-checker-plate-text {
-  font-family: var(--plate-font-family);
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1.15;
+  font-family: var(--heading-font-family);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: normal;
   color: var(--color-white);
-  margin-bottom: var(--spacing-xs);
-  min-height: 55px;
+  text-transform: uppercase;
+  margin-top: 15px;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--color-brand-green);
+  max-width: 315px;
 }
 
-@media (width >= 769px) {
-  .hero-plate-checker-plate-text {
-    font-size: 60px;
-  }
+.hero-plate-checker-plate-text:empty::before {
+  content: attr(data-placeholder);
+  color: #5a5a5a;
 }
 
-/* Hidden input — positioned over plate text for typing */
+/* Hidden input — functional but invisible */
 .hero-plate-checker-input-hidden {
   position: absolute;
   opacity: 0;
@@ -112,27 +173,31 @@
 .hero-plate-checker-input-group {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--spacing-l);
-  padding-top: var(--spacing-xs);
-  border-top: 2px solid var(--color-brand-green);
+  margin-top: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 315px;
 }
 
 .hero-plate-checker-label {
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs);
+  font-size: 14px;
   color: var(--color-white);
+  font-weight: 500;
 }
 
 .hero-plate-checker-counter {
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs);
-  color: var(--color-mid-grey);
+  font-size: 14px;
+  color: var(--color-brand-green);
+  margin-left: 20px;
+  white-space: nowrap;
 }
 
 /* CTA button (ghost style on dark bg) */
 .hero-plate-checker-cta {
-  display: inline-block;
+  display: none;
+  appearance: none;
   background-color: transparent;
   border: 1px solid var(--color-brand-green);
   color: var(--color-brand-green);
@@ -141,16 +206,27 @@
   font-weight: var(--button-font-weight);
   text-transform: var(--button-text-transform);
   letter-spacing: var(--button-letter-spacing);
+  line-height: 1.6;
   padding: var(--button-padding);
   border-radius: var(--button-border-radius);
   text-decoration: none;
+  text-align: center;
   transition: var(--button-transition);
-  margin-bottom: var(--spacing-m);
+  margin-top: 26px;
+  max-width: 250px;
+  width: 100%;
+  min-height: 48px;
+}
+
+@media (width >= 769px) {
+  .hero-plate-checker-cta {
+    display: inline-block;
+  }
 }
 
 .hero-plate-checker-cta:hover {
   background-color: var(--color-brand-green-dark);
-  border-color: var(--color-brand-green-dark);
+  border-color: var(--color-brand-green-deep);
   color: var(--color-white);
 }
 
@@ -161,26 +237,52 @@
 
 /* Disclaimer */
 .hero-plate-checker-disclaimer {
-  font-size: var(--body-font-size-xxxs);
-  color: var(--color-mid-grey);
-  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 14px;
+  color: var(--color-light-grey);
+  position: relative;
+  margin: 16px 0 24px;
+  padding-left: 30px;
+}
+
+.hero-plate-checker-disclaimer::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-mid-grey);
+  border-radius: 50%;
 }
 
 /* See popular plates link */
 .hero-plate-checker-popular {
   margin: 0;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  padding: 0 25px;
+}
+
+@media (width >= 1080px) {
+  .hero-plate-checker-popular {
+    padding: 0;
+    width: 920px;
+    margin: 0 auto;
+  }
 }
 
 .hero-plate-checker-popular a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  height: 26px;
   background-color: transparent;
   border: none;
   color: var(--color-white);
   text-decoration: none;
-  font-size: var(--body-font-size-xs);
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   text-transform: none;
   letter-spacing: normal;
   padding: 0;
@@ -189,11 +291,19 @@
 
 .hero-plate-checker-popular a::before {
   content: '\2193';
+  display: block;
+  width: 26px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  margin-right: 14px;
+  color: var(--color-mid-grey);
 }
 
 .hero-plate-checker-popular a:hover {
   color: var(--color-brand-green);
   background-color: transparent;
+  text-decoration: underline;
 }
 
 /* Preview column (right) — plate visual */
@@ -203,16 +313,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: var(--spacing-l);
 }
 
-@media (width >= 769px) {
-  .hero-plate-checker-preview {
-    min-width: 320px;
-  }
-}
-
-/* Plate frame — mimics Victorian number plate */
+/* Plate frame — mimics Victorian number plate using SVG background */
 .plate-frame {
   background-color: var(--color-black);
   border: 3px solid var(--color-white);
@@ -245,34 +348,41 @@
 
 .plate-text-display {
   font-family: var(--plate-font-family);
-  font-size: 64px;
+  font-size: 54px;
   font-weight: 400;
   line-height: 1;
   color: var(--color-white);
-  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
 @media (width >= 769px) {
+  .hero-plate-checker-preview {
+    margin-top: 0;
+  }
+
   .plate-frame {
     min-width: 340px;
     padding: 12px 32px 20px;
   }
 
   .plate-text-display {
-    font-size: 80px;
+    font-size: 100px;
   }
 }
 
 /* Preview disclaimer */
 .hero-plate-checker-preview-disclaimer {
-  font-size: var(--body-font-size-xxxs);
-  color: var(--color-mid-grey);
+  font-size: 14px;
+  color: var(--color-light-grey);
   margin-top: var(--spacing-m);
   max-width: 300px;
   text-align: left;
+  padding-left: 30px;
+  position: relative;
 }
 
 .info-icon {
-  margin-right: 4px;
-  color: var(--color-brand-green);
+  position: absolute;
+  left: 0;
+  color: var(--color-mid-grey);
 }
