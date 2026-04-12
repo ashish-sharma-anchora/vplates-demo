@@ -203,8 +203,9 @@ header nav[aria-expanded='true'] .nav-sections {
 
 @media (width >= 769px) {
   header nav .nav-sections {
-    display: block;
+    display: flex;
     visibility: visible;
+    align-items: stretch;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -218,7 +219,11 @@ header nav[aria-expanded='true'] .nav-sections {
   }
 }
 
-header nav .nav-sections ul {
+header nav .nav-sections .default-content-wrapper {
+  height: 100%;
+}
+
+header nav .nav-sections .default-content-wrapper > ul {
   display: flex;
   list-style: none;
   margin: 0;
