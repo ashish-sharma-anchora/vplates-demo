@@ -100,11 +100,6 @@
   }
 }
 
-/* Hidden cards, watermarks, controls — MUST come after .tabs-card grid rule */
-.tabs-promo-gallery .tabs-card-hidden {
-  display: none;
-}
-
 /* Left panel — colored background, white text */
 .tabs-promo-gallery .tabs-panel-left {
   padding: 26px 26px 80px;
@@ -228,4 +223,9 @@
 .tabs-promo-gallery .tabs-carousel-next:hover {
   border-color: var(--color-text-primary);
   color: var(--color-text-primary);
+}
+
+/* MUST be last — overrides display:grid, display:flex from above rules */
+.tabs-promo-gallery .tabs-card-hidden {
+  display: none;
 }
