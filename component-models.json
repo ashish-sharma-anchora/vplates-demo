@@ -251,26 +251,28 @@
     "id": "hero-plate-checker",
     "fields": [
       {
-        "component": "reference",
+        "component": "text",
         "valueType": "string",
-        "name": "image",
-        "label": "Plate Preview Image",
-        "multi": false
+        "name": "heading",
+        "label": "Title",
+        "value": "Check your combination"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text",
-        "value": "Plate preview"
+        "name": "cta",
+        "label": "CTA Button Label",
+        "value": "Check availability"
       },
       {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Hero Content",
-        "description": "Title, vehicle types, input instructions, CTA links, and disclaimer",
-        "valueType": "string"
+        "component": "aem-content",
+        "name": "ctaLink",
+        "label": "CTA Button Link"
+      },
+      {
+        "component": "aem-content",
+        "name": "browseLink",
+        "label": "Popular Plates Link"
       }
     ]
   },

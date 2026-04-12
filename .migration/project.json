@@ -1,5 +1,9 @@
 {
   "type": "xwalk",
   "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json",
-  "contentHostUrl": "author-p119552-e1404594.adobeaemcloud.com"
+  "contentHostUrl": "author-p119552-e1404594.adobeaemcloud.com",
+  "aemSitePath": "/content/vplates-demo",
+  "aemAssetsFolderPath": "/content/dam/vplates-demo",
+  "aemSiteName": "vplates-demo",
+  "aemSiteTitle": "vplates-demo"
 }

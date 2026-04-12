@@ -1,126 +1,173 @@
+/**
+ * Hero Plate Checker block — interactive plate combination checker.
+ * The author configures: heading, CTA label/link, popular plates link.
+ * The JS builds the entire form UI (vehicle toggle, plate input, preview).
+ *
+ * Expected authored markup (from UE, 4 rows):
+ * Row 1: heading
+ * Row 2: cta (button label)
+ * Row 3: ctaLink (a href)
+ * Row 4: browseLink (a href)
+ */
 export default function decorate(block) {
+  // Extract authored content from block rows
   const rows = [...block.children];
-  if (rows.length < 2) return;
+  const getValue = (rowIdx) => {
+    const row = rows[rowIdx];
+    if (!row) return '';
+    const cell = row.querySelector('div:last-child');
+    if (!cell) return '';
+    const link = cell.querySelector('a');
+    if (link) return link.href;
+    return cell.textContent.trim();
+  };
 
-  const imageRow = rows[0];
-  const textRow = rows[1];
+  const title = getValue(0) || 'Check your combination';
+  const ctaLabel = getValue(1) || 'Check availability';
+  const ctaLink = getValue(2) || '/create/select-a-style';
+  const browseLink = getValue(3) || '/browse-styles';
 
-  // Build hero structure
+  // Vehicle type configuration
+  const vehicles = [
+    {
+      id: 'car', label: 'Car', maxLength: 6, placeholder: 'CUSTOM', instructions: 'Enter between 2 and 6 letters/numbers',
+    },
+    {
+      id: 'motorcycle', label: 'Motorbike', maxLength: 5, placeholder: 'MOTO5', instructions: 'Enter between 2 and 5 letters/numbers',
+    },
+  ];
+
+  let activeVehicle = vehicles[0];
+
+  // Clear block and rebuild
   block.textContent = '';
-  block.classList.add('hero-plate-checker');
 
-  // Create two-column layout: left (form) + right (plate preview)
-  const formCol = document.createElement('div');
-  formCol.classList.add('hero-plate-checker-form');
+  // === Create all elements first (before referencing) ===
 
-  const previewCol = document.createElement('div');
-  previewCol.classList.add('hero-plate-checker-preview');
+  // Title
+  const titleEl = document.createElement('h2');
+  titleEl.classList.add('hero-plate-checker-title');
+  titleEl.textContent = title;
 
-  // Extract text content elements
-  const textDiv = textRow.querySelector('div');
-  const elements = textDiv ? [...textDiv.children] : [];
+  // Plate display (large plate font text)
+  const plateDisplay = document.createElement('div');
+  plateDisplay.classList.add('hero-plate-checker-plate-text');
+  plateDisplay.textContent = activeVehicle.placeholder;
+  plateDisplay.style.cursor = 'text';
 
-  // Title (h2)
-  const title = elements.find((el) => el.tagName === 'H2');
-  if (title) {
-    title.classList.add('hero-plate-checker-title');
-    formCol.appendChild(title);
-  }
+  // Input group elements
+  const labelEl = document.createElement('span');
+  labelEl.classList.add('hero-plate-checker-label');
+  labelEl.textContent = activeVehicle.instructions;
+
+  const counter = document.createElement('span');
+  counter.classList.add('hero-plate-checker-counter');
+  counter.textContent = `0/${activeVehicle.maxLength}`;
+
+  const inputGroup = document.createElement('div');
+  inputGroup.classList.add('hero-plate-checker-input-group');
+  inputGroup.appendChild(labelEl);
+  inputGroup.appendChild(counter);
+
+  // Hidden input for plate combination
+  const plateInput = document.createElement('input');
+  plateInput.type = 'text';
+  plateInput.maxLength = activeVehicle.maxLength;
+  plateInput.placeholder = activeVehicle.placeholder;
+  plateInput.classList.add('hero-plate-checker-input-hidden');
+  plateInput.setAttribute('aria-label', activeVehicle.instructions);
+
+  // CTA button
+  const ctaBtn = document.createElement('a');
+  ctaBtn.href = ctaLink;
+  ctaBtn.textContent = ctaLabel;
+  ctaBtn.classList.add('hero-plate-checker-cta', 'disabled');
+
+  // Plate visual for preview column
+  const plateVisual = document.createElement('div');
+  plateVisual.classList.add('hero-plate-checker-plate-visual');
+  plateVisual.innerHTML = `
+    <div class="plate-frame">
+      <div class="plate-header">VIC</div>
+      <div class="plate-text-display">${activeVehicle.placeholder}</div>
+    </div>
+  `;
+  const plateTextDisplay = plateVisual.querySelector('.plate-text-display');
+
+  // === Wire up events ===
 
   // Vehicle type toggle
-  const vehiclePara = elements.find((el) => el.tagName === 'P' && el.textContent.includes('|'));
-  if (vehiclePara) {
-    const vehicleToggle = document.createElement('div');
-    vehicleToggle.classList.add('hero-plate-checker-vehicles');
-    const types = vehiclePara.textContent.split('|').map((t) => t.trim());
-    types.forEach((type, i) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = type;
-      btn.classList.add('hero-plate-checker-vehicle-btn');
-      if (i === 0) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        vehicleToggle.querySelectorAll('.hero-plate-checker-vehicle-btn').forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-      vehicleToggle.appendChild(btn);
+  const vehicleToggle = document.createElement('div');
+  vehicleToggle.classList.add('hero-plate-checker-vehicles');
+  vehicles.forEach((v) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = v.label;
+    btn.classList.add('hero-plate-checker-vehicle-btn');
+    if (v.id === activeVehicle.id) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      vehicleToggle.querySelectorAll('.hero-plate-checker-vehicle-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeVehicle = v;
+      plateInput.maxLength = v.maxLength;
+      plateInput.placeholder = v.placeholder;
+      plateInput.value = '';
+      labelEl.textContent = v.instructions;
+      counter.textContent = `0/${v.maxLength}`;
+      plateDisplay.textContent = v.placeholder;
+      plateTextDisplay.textContent = v.placeholder;
     });
-    formCol.appendChild(vehicleToggle);
-  }
+    vehicleToggle.appendChild(btn);
+  });
 
-  // Input label
-  const labelPara = elements.find((el) => el.tagName === 'P' && el.textContent.includes('Enter between'));
-  if (labelPara) {
-    const inputGroup = document.createElement('div');
-    inputGroup.classList.add('hero-plate-checker-input-group');
+  // Plate input event
+  plateInput.addEventListener('input', () => {
+    const val = plateInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    plateInput.value = val;
+    counter.textContent = `${val.length}/${activeVehicle.maxLength}`;
+    plateDisplay.textContent = val || activeVehicle.placeholder;
+    plateTextDisplay.textContent = val || activeVehicle.placeholder;
+    ctaBtn.classList.toggle('disabled', val.length < 2);
+  });
 
-    const plateInput = document.createElement('input');
-    plateInput.type = 'text';
-    plateInput.maxLength = 6;
-    plateInput.placeholder = 'CUSTOM';
-    plateInput.classList.add('hero-plate-checker-input');
-    plateInput.setAttribute('aria-label', labelPara.textContent.trim());
-
-    const counter = document.createElement('span');
-    counter.classList.add('hero-plate-checker-counter');
-    counter.textContent = '0/6';
-
-    const labelEl = document.createElement('p');
-    labelEl.classList.add('hero-plate-checker-label');
-    labelEl.textContent = labelPara.textContent.trim();
-
-    // Plate display (large text)
-    const plateDisplay = document.createElement('div');
-    plateDisplay.classList.add('hero-plate-checker-plate-text');
-    plateDisplay.textContent = 'CUSTOM';
-
-    plateInput.addEventListener('input', () => {
-      const val = plateInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-      plateInput.value = val;
-      counter.textContent = `${val.length}/6`;
-      plateDisplay.textContent = val || 'CUSTOM';
-    });
-
-    inputGroup.appendChild(labelEl);
-    inputGroup.appendChild(counter);
-    formCol.appendChild(inputGroup);
-    formCol.appendChild(plateDisplay);
-  }
-
-  // CTA button (Check availability)
-  const ctaPara = elements.find((el) => el.tagName === 'P' && el.querySelector('a[href*="select-a-style"]'));
-  if (ctaPara) {
-    const link = ctaPara.querySelector('a');
-    const ctaBtn = document.createElement('a');
-    ctaBtn.href = link.href;
-    ctaBtn.textContent = link.textContent;
-    ctaBtn.classList.add('hero-plate-checker-cta', 'button', 'ghost');
-    formCol.appendChild(ctaBtn);
-  }
+  // Click plate display to focus input
+  plateDisplay.addEventListener('click', () => plateInput.focus());
 
   // Disclaimer
-  const disclaimerPara = elements.find((el) => el.querySelector('em'));
-  if (disclaimerPara) {
-    disclaimerPara.classList.add('hero-plate-checker-disclaimer');
-    formCol.appendChild(disclaimerPara);
-  }
+  const disclaimer = document.createElement('p');
+  disclaimer.classList.add('hero-plate-checker-disclaimer');
+  disclaimer.innerHTML = '<em>Representation of plates provided are for illustrative purposes only</em>';
 
-  // "See popular plates" link
-  const popularPara = elements.find((el) => el.tagName === 'P' && el.querySelector('a[href*="browse-styles"]'));
-  if (popularPara && popularPara !== ctaPara) {
-    popularPara.classList.add('hero-plate-checker-popular');
-    formCol.appendChild(popularPara);
-  }
+  // Popular plates link
+  const popularEl = document.createElement('p');
+  popularEl.classList.add('hero-plate-checker-popular');
+  const popularA = document.createElement('a');
+  popularA.href = browseLink;
+  popularA.textContent = 'See popular plates';
+  popularEl.appendChild(popularA);
 
-  // Plate preview image (right column)
-  const imageDiv = imageRow.querySelector('div');
-  if (imageDiv) {
-    const img = imageDiv.querySelector('img');
-    if (img) {
-      img.classList.add('hero-plate-checker-preview-img');
-      previewCol.appendChild(img);
-    }
-  }
+  // Preview disclaimer
+  const previewDisclaimer = document.createElement('p');
+  previewDisclaimer.classList.add('hero-plate-checker-preview-disclaimer');
+  previewDisclaimer.innerHTML = '<span class="info-icon">&#9432;</span> Representation of plates provided are for illustrative purposes only';
+
+  // === Assemble form column ===
+  const formCol = document.createElement('div');
+  formCol.classList.add('hero-plate-checker-form');
+  formCol.appendChild(titleEl);
+  formCol.appendChild(vehicleToggle);
+  formCol.appendChild(plateDisplay);
+  formCol.appendChild(inputGroup);
+  formCol.appendChild(plateInput);
+  formCol.appendChild(ctaBtn);
+  formCol.appendChild(disclaimer);
+  formCol.appendChild(popularEl);
+
+  // === Assemble preview column ===
+  const previewCol = document.createElement('div');
+  previewCol.classList.add('hero-plate-checker-preview');
+  previewCol.appendChild(plateVisual);
+  previewCol.appendChild(previewDisclaimer);
 
   block.appendChild(formCol);
   block.appendChild(previewCol);

@@ -22,7 +22,7 @@
   .hero-plate-checker {
     flex-direction: row;
     align-items: flex-start;
-    padding: 50px 32px;
+    padding: 50px 32px 40px;
   }
 }
 
@@ -82,27 +82,6 @@
   opacity: 0.7;
 }
 
-/* Input group (label + counter) */
-.hero-plate-checker-input-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: var(--spacing-xs);
-}
-
-.hero-plate-checker-label {
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs);
-  color: var(--color-white);
-  margin: 0;
-}
-
-.hero-plate-checker-counter {
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs);
-  color: var(--color-mid-grey);
-}
-
 /* Plate text display (large plate font) */
 .hero-plate-checker-plate-text {
   font-family: var(--plate-font-family);
@@ -110,16 +89,45 @@
   font-weight: 400;
   line-height: 1.15;
   color: var(--color-white);
-  margin-bottom: var(--spacing-l);
+  margin-bottom: var(--spacing-xs);
   min-height: 55px;
-  border-bottom: 2px solid var(--color-dark-charcoal);
-  padding-bottom: var(--spacing-xs);
 }
 
 @media (width >= 769px) {
   .hero-plate-checker-plate-text {
     font-size: 60px;
   }
+}
+
+/* Hidden input — positioned over plate text for typing */
+.hero-plate-checker-input-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Input group (label + counter) */
+.hero-plate-checker-input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-l);
+  padding-top: var(--spacing-xs);
+  border-top: 2px solid var(--color-brand-green);
+}
+
+.hero-plate-checker-label {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  color: var(--color-white);
+}
+
+.hero-plate-checker-counter {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  color: var(--color-mid-grey);
 }
 
 /* CTA button (ghost style on dark bg) */
@@ -137,13 +145,18 @@
   border-radius: var(--button-border-radius);
   text-decoration: none;
   transition: var(--button-transition);
-  margin-bottom: var(--spacing-l);
+  margin-bottom: var(--spacing-m);
 }
 
 .hero-plate-checker-cta:hover {
   background-color: var(--color-brand-green-dark);
   border-color: var(--color-brand-green-dark);
   color: var(--color-white);
+}
+
+.hero-plate-checker-cta.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Disclaimer */
@@ -153,19 +166,15 @@
   margin: 0 0 var(--spacing-xs) 0;
 }
 
-/* See popular plates link — override EDS .button auto-styling */
+/* See popular plates link */
 .hero-plate-checker-popular {
   margin: 0;
 }
 
-.hero-plate-checker-popular .button-container {
-  margin: 0;
-}
-
-.hero-plate-checker-popular a,
-.hero-plate-checker-popular a.button,
-.hero-plate-checker-popular .button-container a {
-  display: inline;
+.hero-plate-checker-popular a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background-color: transparent;
   border: none;
   color: var(--color-white);
@@ -179,32 +188,91 @@
 }
 
 .hero-plate-checker-popular a::before {
-  content: '\2193 ';
-  margin-right: 4px;
+  content: '\2193';
 }
 
-.hero-plate-checker-popular a:hover,
-.hero-plate-checker-popular a.button:hover {
+.hero-plate-checker-popular a:hover {
   color: var(--color-brand-green);
   background-color: transparent;
 }
 
-/* Preview column (right) — plate image */
+/* Preview column (right) — plate visual */
 .hero-plate-checker-preview {
   flex: 0 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-.hero-plate-checker-preview-img {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
+  justify-content: flex-start;
+  padding-top: var(--spacing-l);
 }
 
 @media (width >= 769px) {
-  .hero-plate-checker-preview-img {
-    max-width: 400px;
+  .hero-plate-checker-preview {
+    min-width: 320px;
   }
+}
+
+/* Plate frame — mimics Victorian number plate */
+.plate-frame {
+  background-color: var(--color-black);
+  border: 3px solid var(--color-white);
+  border-radius: 8px;
+  padding: 10px 24px 16px;
+  text-align: center;
+  position: relative;
+  min-width: 260px;
+}
+
+/* Dots around the plate border */
+.plate-frame::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 2px dotted rgb(255 255 255 / 40%);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.plate-header {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.plate-text-display {
+  font-family: var(--plate-font-family);
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-white);
+  letter-spacing: 4px;
+}
+
+@media (width >= 769px) {
+  .plate-frame {
+    min-width: 340px;
+    padding: 12px 32px 20px;
+  }
+
+  .plate-text-display {
+    font-size: 80px;
+  }
+}
+
+/* Preview disclaimer */
+.hero-plate-checker-preview-disclaimer {
+  font-size: var(--body-font-size-xxxs);
+  color: var(--color-mid-grey);
+  margin-top: var(--spacing-m);
+  max-width: 300px;
+  text-align: left;
+}
+
+.info-icon {
+  margin-right: 4px;
+  color: var(--color-brand-green);
 }
