@@ -1,20 +1,76 @@
+/* Footer — VPlates branding */
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--body-font-size-m);
+  line-height: 1.63;
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: var(--content-wide-max-width);
+  padding: var(--spacing-jumbo) var(--spacing-xl);
 }
 
 footer .footer p {
   margin: 0;
+  color: var(--color-white);
 }
 
-@media (width >= 900px) {
+footer .footer a:any-link {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+footer .footer a:hover {
+  color: var(--color-brand-green);
+  text-decoration: none;
+}
+
+footer .footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer ul li {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Footer nav links with arrow indicator */
+footer .footer ul li a::after {
+  content: '\2192';
+  margin-left: var(--spacing-xs);
+  font-size: var(--body-font-size-xxxs);
+  color: var(--color-mid-grey);
+}
+
+/* Footer images (social icons, gov logos) */
+footer .footer img {
+  height: 24px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+/* Legal links row */
+footer .footer > div:last-child {
+  padding-top: var(--spacing-l);
+  border-top: 1px solid var(--color-dark-charcoal);
+}
+
+footer .footer > div:last-child ul {
+  display: flex;
+  gap: var(--spacing-xxl);
+  flex-wrap: wrap;
+}
+
+footer .footer > div:last-child ul li a::after {
+  display: none;
+}
+
+@media (width >= 769px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: var(--spacing-jumbo) 32px;
   }
 }

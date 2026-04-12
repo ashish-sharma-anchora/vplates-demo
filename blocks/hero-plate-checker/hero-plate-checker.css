@@ -1,0 +1,204 @@
+/* Hero Plate Checker — VPlates homepage hero */
+.hero-plate-checker-container {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.hero-plate-checker-container .hero-plate-checker-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-plate-checker {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--content-wide-max-width);
+  margin: 0 auto;
+  padding: 40px var(--spacing-xl);
+  gap: var(--spacing-xxl);
+}
+
+@media (width >= 769px) {
+  .hero-plate-checker {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 50px 32px;
+  }
+}
+
+/* Form column (left) */
+.hero-plate-checker-form {
+  flex: 1;
+}
+
+.hero-plate-checker-title {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.9px;
+  color: var(--color-white);
+  margin: 0 0 var(--spacing-l) 0;
+}
+
+/* Vehicle type toggle (Car | Motorbike) */
+.hero-plate-checker-vehicles {
+  display: flex;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
+}
+
+.hero-plate-checker-vehicle-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-brand-green);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+.hero-plate-checker-vehicle-btn.active {
+  color: var(--color-brand-green);
+}
+
+.hero-plate-checker-vehicle-btn.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-brand-green);
+}
+
+.hero-plate-checker-vehicle-btn:not(.active) {
+  color: var(--color-white);
+  opacity: 0.7;
+}
+
+/* Input group (label + counter) */
+.hero-plate-checker-input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-xs);
+}
+
+.hero-plate-checker-label {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  color: var(--color-white);
+  margin: 0;
+}
+
+.hero-plate-checker-counter {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  color: var(--color-mid-grey);
+}
+
+/* Plate text display (large plate font) */
+.hero-plate-checker-plate-text {
+  font-family: var(--plate-font-family);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-white);
+  margin-bottom: var(--spacing-l);
+  min-height: 55px;
+  border-bottom: 2px solid var(--color-dark-charcoal);
+  padding-bottom: var(--spacing-xs);
+}
+
+@media (width >= 769px) {
+  .hero-plate-checker-plate-text {
+    font-size: 60px;
+  }
+}
+
+/* CTA button (ghost style on dark bg) */
+.hero-plate-checker-cta {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--color-brand-green);
+  color: var(--color-brand-green);
+  font-family: var(--body-font-family);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  text-transform: var(--button-text-transform);
+  letter-spacing: var(--button-letter-spacing);
+  padding: var(--button-padding);
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+  transition: var(--button-transition);
+  margin-bottom: var(--spacing-l);
+}
+
+.hero-plate-checker-cta:hover {
+  background-color: var(--color-brand-green-dark);
+  border-color: var(--color-brand-green-dark);
+  color: var(--color-white);
+}
+
+/* Disclaimer */
+.hero-plate-checker-disclaimer {
+  font-size: var(--body-font-size-xxxs);
+  color: var(--color-mid-grey);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+/* See popular plates link — override button styles */
+.hero-plate-checker-popular {
+  margin: 0;
+}
+
+.hero-plate-checker-popular a,
+.hero-plate-checker-popular a.button {
+  display: inline;
+  background-color: transparent;
+  border: none;
+  color: var(--color-white);
+  text-decoration: none;
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-plate-checker-popular a::before {
+  content: '\2193 ';
+  margin-right: 4px;
+}
+
+.hero-plate-checker-popular a:hover {
+  color: var(--color-brand-green);
+  background-color: transparent;
+}
+
+/* Preview column (right) — plate image */
+.hero-plate-checker-preview {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-plate-checker-preview-img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+@media (width >= 769px) {
+  .hero-plate-checker-preview-img {
+    max-width: 400px;
+  }
+}

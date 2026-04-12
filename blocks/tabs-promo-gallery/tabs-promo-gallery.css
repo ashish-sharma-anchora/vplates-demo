@@ -1,0 +1,169 @@
+/* Tabs Promo Gallery — tabbed product carousel */
+.tabs-promo-gallery-container {
+  background-color: var(--color-white);
+}
+
+.tabs-promo-gallery-container .tabs-promo-gallery-wrapper {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-xxxl) var(--spacing-xl);
+}
+
+/* Tab navigation */
+.tabs-promo-gallery .tabs-nav {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-light-grey);
+  margin-bottom: var(--spacing-xxl);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tabs-promo-gallery .tabs-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-promo-gallery .tabs-nav-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--spacing-s) var(--spacing-l);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--transition-base), border-color var(--transition-base);
+  min-width: max-content;
+}
+
+.tabs-promo-gallery .tabs-nav-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.tabs-promo-gallery .tabs-nav-btn.active {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  border-bottom-color: var(--color-text-primary);
+}
+
+/* Tab panels */
+.tabs-promo-gallery .tabs-panel {
+  min-height: 300px;
+}
+
+/* Carousel */
+.tabs-promo-gallery .promo-carousel {
+  position: relative;
+}
+
+.tabs-promo-gallery .promo-carousel-list {
+  overflow: hidden;
+}
+
+/* Carousel item — split layout */
+.tabs-promo-gallery .carousel-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xxl);
+}
+
+@media (width >= 769px) {
+  .tabs-promo-gallery .carousel-item {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tabs-promo-gallery .carousel-item.hidden {
+  display: none;
+}
+
+/* Card content styling */
+.tabs-promo-gallery .carousel-item h4 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-m) 0;
+}
+
+.tabs-promo-gallery .carousel-item p {
+  font-size: var(--body-font-size-xs);
+  line-height: 1.71;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-m) 0;
+}
+
+.tabs-promo-gallery .carousel-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-m);
+}
+
+/* CTA links as outlined buttons */
+.tabs-promo-gallery .carousel-item a {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid var(--color-text-primary);
+  border-radius: var(--button-border-radius);
+  color: var(--color-text-primary);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--button-font-weight);
+  text-transform: var(--button-text-transform);
+  letter-spacing: var(--button-letter-spacing);
+  text-decoration: none;
+  transition: var(--button-transition);
+}
+
+.tabs-promo-gallery .carousel-item a:hover {
+  background-color: var(--color-text-primary);
+  color: var(--color-white);
+}
+
+/* Carousel controls */
+.tabs-promo-gallery .promo-carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-xxl);
+}
+
+.tabs-promo-gallery .promo-carousel-prev,
+.tabs-promo-gallery .promo-carousel-next {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-circle);
+  border: 1px solid var(--color-light-grey);
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.tabs-promo-gallery .promo-carousel-prev:hover,
+.tabs-promo-gallery .promo-carousel-next:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
