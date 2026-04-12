@@ -24,14 +24,12 @@
   padding: 50px 25px 93px;
   gap: 20px;
   position: relative;
-  min-height: calc(100vh - 60px);
 }
 
 /* Tablet (769px+): two-column layout */
 @media (width >= 769px) {
   .hero-plate-checker {
     flex-flow: row wrap;
-    min-height: calc(100vh - 190px);
   }
 
   .hero-plate-checker-form {
@@ -50,7 +48,6 @@
     padding-left: 0;
     padding-right: 0;
     width: 920px;
-    min-height: calc(100vh - 250px);
   }
 
   .hero-plate-checker-form {
@@ -247,20 +244,7 @@
 
 /* See popular plates link */
 .hero-plate-checker-popular {
-  margin: 0;
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  right: 0;
-  padding: 0 25px;
-}
-
-@media (width >= 1080px) {
-  .hero-plate-checker-popular {
-    padding: 0;
-    width: 920px;
-    margin: 0 auto;
-  }
+  margin: 30px 0 0;
 }
 
 .hero-plate-checker-popular a {
