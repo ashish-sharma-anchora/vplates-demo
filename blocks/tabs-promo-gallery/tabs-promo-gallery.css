@@ -49,9 +49,8 @@
   border-bottom-color: var(--color-text-primary);
 }
 
-/* Hidden cells and elements */
-.tabs-promo-gallery .tabs-cell-hidden,
-.tabs-promo-gallery .tabs-card-hidden {
+/* Hidden cells */
+.tabs-promo-gallery .tabs-cell-hidden {
   display: none;
 }
 
@@ -99,6 +98,11 @@
   .tabs-promo-gallery .tabs-card {
     grid-template-columns: 45% 1fr;
   }
+}
+
+/* Hidden cards, watermarks, controls — MUST come after .tabs-card grid rule */
+.tabs-promo-gallery .tabs-card-hidden {
+  display: none;
 }
 
 /* Left panel — colored background, white text */
