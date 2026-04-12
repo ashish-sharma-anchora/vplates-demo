@@ -47,10 +47,6 @@
   border-right: none;
 }
 
-.columns-cta-tiles .cta-tile:hover {
-  background-color: var(--color-off-white);
-}
-
 /* Tile title */
 .columns-cta-tiles .cta-tile-title {
   font-family: var(--body-font-family);
@@ -86,6 +82,16 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
+/* Hover state — green background, white text and arrow */
+.columns-cta-tiles .cta-tile:hover {
+  background-color: var(--color-brand-green);
+}
+
+.columns-cta-tiles .cta-tile:hover .cta-tile-title,
+.columns-cta-tiles .cta-tile:hover .cta-tile-description {
+  color: var(--color-white);
+}
+
 .columns-cta-tiles .cta-tile:hover .cta-tile-arrow {
-  border-color: var(--color-brand-green);
+  border-color: var(--color-white);
 }
