@@ -1,7 +1,7 @@
 /**
- * Tabs Promo Gallery — preserves child DOM for Universal Editor compatibility.
- * Each row = one Promo Tab item with cells: [tabLabel, tabContent].
- * JS adds tab navigation and show/hide logic WITHOUT destroying the original structure.
+ * Tabs Promo Gallery — preserves child DOM for Universal Editor.
+ * Each row = one Promo Tab with cells: [tabLabel, panelColor, panelBody, contentBody].
+ * JS adds tab navigation and decorates the two-column panel layout.
  */
 export default function decorate(block) {
   const rows = [...block.children];
@@ -15,20 +15,35 @@ export default function decorate(block) {
 
   rows.forEach((row, index) => {
     const cells = [...row.children];
+    // Cells: 0=tabLabel, 1=panelColor, 2=panelBody (left panel), 3=contentBody (right)
     const labelCell = cells[0];
+    const colorCell = cells[1];
+    const panelCell = cells[2];
+    const contentCell = cells[3];
+
     const tabLabel = labelCell ? labelCell.textContent.trim() : `Tab ${index + 1}`;
+    const panelColor = colorCell ? colorCell.textContent.trim() : '';
     const tabId = `tab-${tabLabel.toLowerCase().replace(/\s+/g, '-')}`;
 
-    // Mark each row as a tab panel
+    // Mark row as tab panel
     row.classList.add('tabs-panel');
     row.setAttribute('role', 'tabpanel');
     row.id = `${tabId}-panel`;
     row.setAttribute('aria-labelledby', `${tabId}-btn`);
     if (index !== 0) row.hidden = true;
 
-    // Mark cells
+    // Mark cells with roles
     if (labelCell) labelCell.classList.add('tabs-panel-label');
-    if (cells[1]) cells[1].classList.add('tabs-panel-content');
+    if (colorCell) colorCell.classList.add('tabs-panel-color');
+    if (panelCell) {
+      panelCell.classList.add('tabs-panel-left');
+      // Apply background color from authored value
+      if (panelColor) {
+        panelCell.style.backgroundColor = panelColor;
+        panelCell.style.color = '#fff';
+      }
+    }
+    if (contentCell) contentCell.classList.add('tabs-panel-right');
 
     // Create tab button
     const tabBtn = document.createElement('button');
@@ -78,6 +93,6 @@ export default function decorate(block) {
     tabs[newIdx].focus();
   });
 
-  // Insert tab nav BEFORE the rows (don't destroy existing DOM)
+  // Insert tab nav before rows
   block.prepend(tabNav);
 }

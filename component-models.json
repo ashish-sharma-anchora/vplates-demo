@@ -316,11 +316,26 @@
         "description": "Category name shown on the tab (e.g., Business, Sports)"
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "panelColor",
+        "label": "Panel Color",
+        "description": "Hex color for the left panel background (e.g., #43b02a for green, #000 for black)"
+      },
+      {
         "component": "richtext",
-        "name": "tabContent",
+        "name": "panelBody",
         "value": "",
-        "label": "Tab Content",
-        "description": "Content for this tab: headings, descriptions, images, and CTA links. Use --- (horizontal rule) to separate multiple carousel items.",
+        "label": "Panel Content (Left)",
+        "description": "Left panel: heading, description, and plate image",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "contentBody",
+        "value": "",
+        "label": "Content (Right)",
+        "description": "Right side: description text and Learn More CTA link",
         "valueType": "string"
       }
     ]
