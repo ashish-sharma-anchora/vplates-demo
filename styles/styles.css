@@ -11,64 +11,256 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* ======================
+     COLORS — Primary
+     ====================== */
+  --color-black: #000;
+  --color-brand-green: #43b02a;
+  --color-brand-green-dark: #3b8621;
+  --color-brand-green-deep: #2e791d;
+  --color-white: #fff;
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* ======================
+     COLORS — Secondary / Supporting
+     ====================== */
+  --color-near-black: #101010;
+  --color-dark-charcoal: #191919;
+  --color-dark-brown-black: #231f20;
+  --color-body-text: #333;
+  --color-mid-grey: #767676;
+  --color-light-grey: #b6b5b5;
+  --color-off-white: #f5f5f5;
+  --color-amber: #fec401;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* ======================
+     COLORS — Semantic
+     ====================== */
+  --color-error: #ff0032;
+  --color-error-bg: #f9e6e7;
+  --color-success: #43b02a;
+  --color-success-bg: #c6e7bf;
+  --color-warning-bg: #ffedb2;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* ======================
+     COLORS — Functional Aliases
+     ====================== */
 
-  /* nav height */
-  --nav-height: 64px;
+  /* Text */
+  --color-text-primary: var(--color-dark-brown-black);
+  --color-text-secondary: var(--color-body-text);
+  --color-text-muted: var(--color-mid-grey);
+  --color-text-inverse: var(--color-white);
+
+  /* Backgrounds */
+  --background-color: var(--color-white);
+  --color-background-light: var(--color-off-white);
+  --color-background-dark: var(--color-black);
+  --color-background-near-black: var(--color-near-black);
+  --color-background-charcoal: var(--color-dark-charcoal);
+
+  /* Borders */
+  --color-border: var(--color-light-grey);
+  --color-border-dark: var(--color-dark-charcoal);
+
+  /* EDS compatibility aliases */
+  --light-color: var(--color-off-white);
+  --dark-color: var(--color-dark-brown-black);
+  --text-color: var(--color-dark-brown-black);
+  --link-color: var(--color-brand-green);
+  --link-hover-color: var(--color-brand-green-deep);
+
+  /* ======================
+     TYPOGRAPHY — Font Families
+     ====================== */
+  --body-font-family: 'open sans', open-sans-fallback, arial, helvetica, sans-serif;
+  --heading-font-family: montserrat, 'open sans', open-sans-fallback, arial, helvetica, sans-serif;
+  --plate-font-family: 'plate-standard', sans-serif;
+
+  /* ======================
+     TYPOGRAPHY — Body Font Sizes
+     ====================== */
+  --body-font-size-l: 18px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 15px;
+  --body-font-size-xs: 14px;
+  --body-font-size-xxs: 13px;
+  --body-font-size-xxxs: 12px;
+
+  /* ======================
+     TYPOGRAPHY — Heading Font Sizes (mobile-first)
+     ====================== */
+  --heading-font-size-xxl: 35px;
+  --heading-font-size-xl: 30px;
+  --heading-font-size-l: 25px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+
+  /* ======================
+     TYPOGRAPHY — Properties
+     ====================== */
+  --body-line-height: 1.4;
+  --heading-line-height: 1.14;
+  --heading-letter-spacing: -0.9px;
+  --heading-text-transform: none;
+  --body-letter-spacing: normal;
+
+  /* ======================
+     SPACING
+     ====================== */
+  --spacing-xxs: 8px;
+  --spacing-xs: 10px;
+  --spacing-s: 13px;
+  --spacing-m: 16px;
+  --spacing-l: 20px;
+  --spacing-xl: 25px;
+  --spacing-xxl: 30px;
+  --spacing-xxxl: 40px;
+  --spacing-xxxxl: 50px;
+  --spacing-jumbo: 60px;
+
+  /* Section spacing */
+  --section-padding: 40px 0;
+  --section-gap: 40px;
+
+  /* ======================
+     LAYOUT
+     ====================== */
+  --content-max-width: 980px;
+  --content-wide-max-width: 1440px;
+  --content-extra-wide-max-width: 1630px;
+  --content-padding: 0 25px;
+  --nav-height: 60px;
+
+  /* ======================
+     BORDERS & RADIUS
+     ====================== */
+  --border-radius-s: 4px;
+  --border-radius-m: 5px;
+  --border-radius-l: 8px;
+  --border-radius-pill: 30px;
+  --border-radius-circle: 50%;
+
+  /* ======================
+     SHADOWS
+     ====================== */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 10px 15px rgb(0 0 0 / 15%);
+
+  /* ======================
+     TRANSITIONS
+     ====================== */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-header: transform 0.3s ease-out;
+
+  /* ======================
+     BUTTONS
+     ====================== */
+  --button-border-radius: var(--border-radius-m);
+  --button-padding: 17px 34px;
+  --button-font-size: 15px;
+  --button-font-weight: 700;
+  --button-letter-spacing: 1px;
+  --button-text-transform: uppercase;
+  --button-line-height: 1.6;
+  --button-transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+  /* Button — Primary */
+  --button-primary-bg: var(--color-brand-green-dark);
+  --button-primary-color: var(--color-white);
+  --button-primary-hover-bg: var(--color-brand-green);
+
+  /* Button — Secondary (Outlined) */
+  --button-secondary-bg: transparent;
+  --button-secondary-border: 1px solid var(--color-brand-green);
+  --button-secondary-color: var(--color-brand-green-deep);
+  --button-secondary-hover-bg: var(--color-brand-green-dark);
+  --button-secondary-hover-color: var(--color-white);
+
+  /* Button — Ghost (Dark backgrounds) */
+  --button-ghost-bg: transparent;
+  --button-ghost-border: 1px solid var(--color-brand-green);
+  --button-ghost-color: var(--color-brand-green);
+  --button-ghost-hover-bg: var(--color-brand-green-dark);
+  --button-ghost-hover-color: var(--color-white);
+
+  /* ======================
+     LINKS
+     ====================== */
+  --link-text-decoration: none;
+  --link-hover-text-decoration: underline;
+  --link-transition: color 0.3s ease;
+
+  /* ======================
+     INPUTS / FORMS
+     ====================== */
+  --input-border: 1px solid var(--color-light-grey);
+  --input-border-focus: 1px solid var(--color-brand-green);
+  --input-border-radius: var(--border-radius-m);
+  --input-padding: 10px 16px;
+  --input-font-size: var(--body-font-size-m);
+
+  /* Form labels */
+  --label-font-size: var(--body-font-size-s);
+  --label-font-weight: 700;
+  --label-text-transform: uppercase;
+  --label-color: var(--color-brand-green);
+
+  /* Form states */
+  --input-error-border: 1px solid var(--color-error);
+  --input-error-bg: var(--color-error-bg);
+  --input-success-bg: var(--color-success-bg);
+  --input-warning-bg: var(--color-warning-bg);
+
+  /* ======================
+     FOCUS
+     ====================== */
+  --focus-outline: 2px solid var(--color-brand-green);
+  --focus-outline-offset: 2px;
 }
 
-/* fallback fonts */
+/* Fallback fonts */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
+  font-family: open-sans-fallback;
+  size-adjust: 100%;
   src: local('Arial');
 }
 
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
-}
-
-@media (width >= 900px) {
+/* Tablet breakpoint */
+@media (width >= 769px) {
   :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-l: 25px;
+    --content-padding: 0 32px;
   }
 }
+
+/* Desktop breakpoint */
+@media (width >= 1000px) {
+  :root {
+    --heading-font-size-xxl: 40px;
+    --heading-font-size-xl: 35px;
+    --heading-font-size-l: 30px;
+    --heading-font-size-m: 24px;
+    --heading-font-size-s: 20px;
+    --heading-font-size-xs: 18px;
+    --content-padding: 0 32px;
+    --nav-height: 60px;
+  }
+}
+
+/* Wide desktop breakpoint */
+@media (width >= 1441px) {
+  :root {
+    --content-padding: 0 40px;
+  }
+}
+
+/* ======================
+   BASE STYLES
+   ====================== */
 
 body {
   display: none;
@@ -76,8 +268,10 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.appear {
@@ -98,6 +292,10 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* ======================
+   TYPOGRAPHY
+   ====================== */
+
 h1,
 h2,
 h3,
@@ -107,15 +305,33 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
+  text-transform: var(--heading-text-transform);
+  color: var(--color-text-primary);
   scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+  line-height: 1.14;
+  letter-spacing: -0.9px;
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+  line-height: 1.0;
+  letter-spacing: 1px;
+}
+
 h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
+
+h4 {
+  font-size: var(--heading-font-size-m);
+  line-height: 1.0;
+}
+
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
@@ -136,14 +352,14 @@ pre {
 
 pre {
   padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
+  border-radius: var(--border-radius-l);
+  background-color: var(--color-background-light);
   overflow-x: auto;
   white-space: pre;
 }
 
 main > div {
-  margin: 40px 16px;
+  margin: 40px 25px;
 }
 
 input,
@@ -153,19 +369,32 @@ button {
   font: inherit;
 }
 
-/* links */
+/* ======================
+   LINKS
+   ====================== */
+
 a:any-link {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: var(--link-text-decoration);
+  transition: var(--link-transition);
   overflow-wrap: break-word;
 }
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
+  text-decoration: var(--link-hover-text-decoration);
 }
 
-/* buttons */
+a:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ======================
+   BUTTONS
+   ====================== */
+
+/* Primary button (green) */
 a.button:any-link,
 button {
   box-sizing: border-box;
@@ -173,42 +402,113 @@ button {
   max-width: 100%;
   margin: 12px 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
   font-family: var(--body-font-family);
   font-style: normal;
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: var(--button-font-weight);
+  font-size: var(--button-font-size);
+  line-height: var(--button-line-height);
+  letter-spacing: var(--button-letter-spacing);
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
-  color: var(--background-color);
+  text-transform: var(--button-text-transform);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: var(--button-transition);
 }
 
 a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--link-hover-color);
+  background-color: var(--button-primary-hover-bg);
   cursor: pointer;
+}
+
+a.button:active,
+button:active {
+  background-color: var(--color-brand-green-deep);
+}
+
+a.button:focus-visible,
+button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 button:disabled,
 button:disabled:hover {
-  background-color: var(--light-color);
-  cursor: unset;
+  background-color: var(--color-background-light);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  cursor: not-allowed;
 }
 
+/* Secondary button (outlined) */
 a.button.secondary,
 button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: var(--button-secondary-bg);
+  border: var(--button-secondary-border);
+  color: var(--button-secondary-color);
 }
+
+a.button.secondary:hover,
+a.button.secondary:focus,
+button.secondary:hover,
+button.secondary:focus {
+  background-color: var(--button-secondary-hover-bg);
+  border-color: var(--button-secondary-hover-bg);
+  color: var(--button-secondary-hover-color);
+}
+
+a.button.secondary:active,
+button.secondary:active {
+  background-color: var(--color-brand-green-deep);
+  border-color: var(--color-brand-green-deep);
+  color: var(--color-white);
+}
+
+/* Ghost button (dark backgrounds) */
+a.button.ghost,
+button.ghost {
+  background-color: var(--button-ghost-bg);
+  border: var(--button-ghost-border);
+  color: var(--button-ghost-color);
+}
+
+a.button.ghost:hover,
+a.button.ghost:focus,
+button.ghost:hover,
+button.ghost:focus {
+  background-color: var(--button-ghost-hover-bg);
+  border-color: var(--button-ghost-hover-bg);
+  color: var(--button-ghost-hover-color);
+}
+
+/* Tertiary button (text link style) */
+a.button.tertiary,
+button.tertiary {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-primary);
+  padding: 0;
+}
+
+a.button.tertiary:hover,
+button.tertiary:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-brand-green);
+}
+
+/* ======================
+   IMAGES
+   ====================== */
 
 main img {
   max-width: 100%;
@@ -227,31 +527,223 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* ======================
+   SECTIONS
+   ====================== */
+
 main > .section {
-  margin: 40px 0;
+  margin: var(--section-gap) 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: var(--content-padding);
+}
+
+main > .section > div.wide {
+  max-width: var(--content-wide-max-width);
+}
+
+main > .section > div.extra-wide {
+  max-width: var(--content-extra-wide-max-width);
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
+@media (width >= 1000px) {
   main > .section > div {
     padding: 0 32px;
   }
 }
 
-/* section metadata */
+/* Section variants — Light */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--color-background-light);
   margin: 0;
-  padding: 40px 0;
+  padding: var(--section-padding);
+}
+
+/* Section variants — Dark (brand dark brown-black) */
+main .section.dark {
+  background-color: var(--color-dark-brown-black);
+  color: var(--color-text-inverse);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.dark a:any-link {
+  color: var(--color-text-inverse);
+}
+
+/* Section variants — Black (header/hero/footer-style) */
+main .section.black {
+  background-color: var(--color-black);
+  color: var(--color-text-inverse);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.black h1,
+main .section.black h2,
+main .section.black h3,
+main .section.black h4,
+main .section.black h5,
+main .section.black h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.black a:any-link {
+  color: var(--color-brand-green);
+}
+
+main .section.black a.button:any-link {
+  background-color: var(--button-ghost-bg);
+  border: var(--button-ghost-border);
+  color: var(--button-ghost-color);
+}
+
+main .section.black a.button:hover {
+  background-color: var(--button-ghost-hover-bg);
+  border-color: var(--button-ghost-hover-bg);
+  color: var(--button-ghost-hover-color);
+}
+
+/* Section variants — Near Black */
+main .section.near-black {
+  background-color: var(--color-near-black);
+  color: var(--color-text-inverse);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.near-black h1,
+main .section.near-black h2,
+main .section.near-black h3,
+main .section.near-black h4,
+main .section.near-black h5,
+main .section.near-black h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.near-black a:any-link {
+  color: var(--color-brand-green);
+}
+
+/* Section variants — Green */
+main .section.green {
+  background-color: var(--color-brand-green);
+  color: var(--color-text-inverse);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.green h1,
+main .section.green h2,
+main .section.green h3,
+main .section.green h4,
+main .section.green h5,
+main .section.green h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.green a.button:any-link {
+  background-color: var(--color-text-inverse);
+  color: var(--color-brand-green);
+  border-color: var(--color-text-inverse);
+}
+
+main .section.green a.button:hover {
+  background-color: var(--color-background-light);
+}
+
+/* ======================
+   LISTS
+   ====================== */
+
+ul,
+ol {
+  padding-left: 1.5em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* ======================
+   FORM ELEMENTS
+   ====================== */
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  padding: var(--input-padding);
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  font-family: var(--body-font-family);
+  font-size: var(--input-font-size);
+  line-height: var(--body-line-height);
+  color: var(--color-text-primary);
+  background-color: var(--background-color);
+  transition: border-color var(--transition-base);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border: var(--input-border-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(67 176 42 / 15%);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+label {
+  font-family: var(--body-font-family);
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  text-transform: var(--label-text-transform);
+  color: var(--label-color);
+}
+
+/* ======================
+   HR
+   ====================== */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--spacing-xl) 0;
+}
+
+/* ======================
+   BLOCKQUOTE
+   ====================== */
+
+blockquote {
+  border-left: 4px solid var(--color-brand-green);
+  padding-left: var(--spacing-l);
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: var(--spacing-l) 0;
 }

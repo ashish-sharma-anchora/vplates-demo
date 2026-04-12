@@ -1,0 +1,63 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.vplates.com.au/"
+      ],
+      "description": "VPlates homepage with plate checker hero, CTA tiles, promo gallery tabs, and Instagram social feed",
+      "blocks": [
+        {
+          "name": "hero-plate-checker",
+          "instances": ["section#quick-check-combo.quick-combo"]
+        },
+        {
+          "name": "columns-cta-tiles",
+          "instances": [".cta-tiles__list"]
+        },
+        {
+          "name": "tabs-promo-gallery",
+          "instances": [".promo-gallery"]
+        },
+        {
+          "name": "embed-social",
+          "instances": [".instagram"]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-2-hero",
+          "name": "Plate Checker Hero",
+          "selector": "section#quick-check-combo",
+          "style": "black",
+          "blocks": ["hero-plate-checker"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3-cta-tiles",
+          "name": "CTA Tiles",
+          "selector": ".component.Tiles.List",
+          "style": null,
+          "blocks": ["columns-cta-tiles"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4-promo-tabs",
+          "name": "Promo Gallery Tabs",
+          "selector": ".promo-gallery",
+          "style": null,
+          "blocks": ["tabs-promo-gallery"],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5-instagram",
+          "name": "Instagram Feed",
+          "selector": ".instagram",
+          "style": null,
+          "blocks": ["embed-social"],
+          "defaultContent": [".instagram__title"]
+        }
+      ]
+    }
+  ]
+}
