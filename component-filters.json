@@ -52,7 +52,7 @@
   {
     "id": "tabs-promo-gallery",
     "components": [
-      "promo-tab"
+      "promo-card"
     ]
   }
 ]

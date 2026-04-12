@@ -233,15 +233,15 @@
           }
         },
         {
-          "title": "Promo Tab",
-          "id": "promo-tab",
+          "title": "Promo Card",
+          "id": "promo-card",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Promo Tab",
-                  "model": "promo-tab"
+                  "name": "Promo Card",
+                  "model": "promo-card"
                 }
               }
             }

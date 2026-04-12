@@ -16,15 +16,15 @@
       }
     },
     {
-      "title": "Promo Tab",
-      "id": "promo-tab",
+      "title": "Promo Card",
+      "id": "promo-card",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Promo Tab",
-              "model": "promo-tab"
+              "name": "Promo Card",
+              "model": "promo-card"
             }
           }
         }
@@ -33,28 +33,28 @@
   ],
   "models": [
     {
-      "id": "promo-tab",
+      "id": "promo-card",
       "fields": [
         {
           "component": "text",
           "valueType": "string",
-          "name": "config_label",
-          "label": "Tab Label",
-          "description": "Category name shown on the tab (e.g., Business, Sports)"
+          "name": "config_group",
+          "label": "Tab Group",
+          "description": "Which tab this card belongs to (e.g., Business, Sports, Premium)"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "config_color",
           "label": "Panel Color",
-          "description": "Hex color for the left panel (e.g., #43b02a for green, #000 for black)"
+          "description": "Hex color for the left panel (e.g., #43b02a, #222, #00529c)"
         },
         {
           "component": "richtext",
           "name": "panel",
           "value": "",
           "label": "Panel Content (Left)",
-          "description": "Left colored panel: heading, description text",
+          "description": "Left colored panel: heading and description",
           "valueType": "string"
         },
         {
@@ -70,7 +70,7 @@
           "name": "content",
           "value": "",
           "label": "Panel Content (Right)",
-          "description": "Right side: description and Learn More link",
+          "description": "Right side: description text and CTA link (e.g., Learn more)",
           "valueType": "string"
         }
       ]
@@ -80,7 +80,7 @@
     {
       "id": "tabs-promo-gallery",
       "components": [
-        "promo-tab"
+        "promo-card"
       ]
     }
   ]

@@ -1,4 +1,4 @@
-/* Tabs Promo Gallery — tabbed product carousel */
+/* Tabs Promo Gallery — tabbed carousel */
 .tabs-promo-gallery-container {
   background-color: var(--color-white);
 }
@@ -54,26 +54,17 @@
   display: none;
 }
 
-/* Tab panel — row acts as the two-column container */
+/* Tab panel */
 .tabs-promo-gallery .tabs-panel {
-  display: grid;
-  grid-template-columns: 1fr;
   position: relative;
   overflow: hidden;
-  min-height: 400px;
-}
-
-@media (width >= 769px) {
-  .tabs-promo-gallery .tabs-panel {
-    grid-template-columns: 45% 1fr;
-  }
 }
 
 .tabs-promo-gallery .tabs-panel[hidden] {
   display: none;
 }
 
-/* Watermark — large semi-transparent title behind panel */
+/* Watermark — large semi-transparent title */
 .tabs-promo-gallery .tabs-panel-watermark {
   position: absolute;
   color: var(--color-black);
@@ -95,9 +86,30 @@
   }
 }
 
-/* =============================================
-   LEFT PANEL — colored background, white text
-   ============================================= */
+/* Carousel */
+.tabs-promo-gallery .tabs-carousel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card — two-column split layout */
+.tabs-promo-gallery .tabs-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 400px;
+}
+
+@media (width >= 769px) {
+  .tabs-promo-gallery .tabs-card {
+    grid-template-columns: 45% 1fr;
+  }
+}
+
+.tabs-promo-gallery .tabs-card-hidden {
+  display: none;
+}
+
+/* Left panel — colored background, white text */
 .tabs-promo-gallery .tabs-panel-left {
   padding: 26px 26px 80px;
   position: relative;
@@ -106,7 +118,6 @@
   min-height: 350px;
 }
 
-/* ALL text inside left panel is white */
 .tabs-promo-gallery .tabs-panel-left h1,
 .tabs-promo-gallery .tabs-panel-left h2,
 .tabs-promo-gallery .tabs-panel-left h3,
@@ -132,7 +143,7 @@
   color: var(--color-white);
 }
 
-/* Plate image — centered at bottom of panel, overlapping */
+/* Plate image — centered at bottom of panel */
 .tabs-promo-gallery .tabs-panel-plate-image {
   position: absolute;
   bottom: -10px;
@@ -148,9 +159,7 @@
   height: auto;
 }
 
-/* =============================================
-   RIGHT PANEL — content area with CTA
-   ============================================= */
+/* Right panel — content + CTA */
 .tabs-promo-gallery .tabs-panel-right {
   padding: 26px;
   display: flex;
@@ -167,7 +176,7 @@
   margin: 0 0 var(--spacing-l);
 }
 
-/* CTA links — outlined button, override EDS .button */
+/* CTA — outlined button, override EDS .button */
 .tabs-promo-gallery .tabs-panel-right a,
 .tabs-promo-gallery .tabs-panel-right a.button {
   display: inline-block;
@@ -190,4 +199,37 @@
 .tabs-promo-gallery .tabs-panel-right a.button:hover {
   background-color: var(--color-text-primary);
   color: var(--color-white);
+}
+
+/* Carousel controls — prev/next arrows */
+.tabs-promo-gallery .tabs-carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-xxl);
+  position: relative;
+  z-index: 1;
+}
+
+.tabs-promo-gallery .tabs-carousel-prev,
+.tabs-promo-gallery .tabs-carousel-next {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-circle);
+  border: 1px solid var(--color-light-grey);
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.tabs-promo-gallery .tabs-carousel-prev:hover,
+.tabs-promo-gallery .tabs-carousel-next:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
