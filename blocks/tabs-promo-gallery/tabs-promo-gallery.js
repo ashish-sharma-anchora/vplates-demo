@@ -1,5 +1,6 @@
 /**
  * Tabs Promo Gallery — flat items grouped into tabs with carousel.
+ * PRESERVES original child DOM for Universal Editor compatibility.
  *
  * Each child row = one Promo Card with 4 cells (after field grouping):
  *   Cell 0: config (grouped: config_group + config_color)
@@ -7,8 +8,9 @@
  *   Cell 2: image (plate image reference)
  *   Cell 3: content (richtext — right side description + CTA)
  *
- * JS groups items by config_group to build tabs dynamically.
+ * JS groups items by config_group to build tabs.
  * Groups with 2+ items get carousel prev/next controls.
+ * Original rows are decorated in place — NOT moved or destroyed.
  */
 
 function parseConfigCell(cell) {
@@ -16,21 +18,18 @@ function parseConfigCell(cell) {
   let color = '';
   if (!cell) return { group, color };
 
-  // EDS may convert #hex to a link — check for links first
   const link = cell.querySelector('a');
   if (link) {
     const linkText = link.textContent.trim();
     if (linkText.startsWith('#')) color = linkText;
   }
 
-  // Collect all text nodes / paragraphs
   const texts = [];
   cell.querySelectorAll('p, span, div').forEach((el) => {
     const t = el.textContent.trim();
     if (t) texts.push(t);
   });
 
-  // Fallback: plain text content
   if (texts.length === 0) {
     const plain = cell.textContent.trim();
     if (plain) {
@@ -38,7 +37,6 @@ function parseConfigCell(cell) {
     }
   }
 
-  // Separate group name from color
   texts.forEach((t) => {
     if (t.startsWith('#') && !color) color = t;
     else if (!group) group = t;
@@ -51,116 +49,81 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (rows.length === 0) return;
 
-  // Parse all rows and group by tab name
-  const groups = new Map(); // preserves insertion order
-  const cardData = [];
+  // Parse rows and group by tab name
+  const groups = new Map();
+  const rowMeta = [];
 
   rows.forEach((row) => {
     const cells = [...row.children];
-    const configCell = cells[0];
-    const panelCell = cells[1];
-    const imageCell = cells[2];
-    const contentCell = cells[3];
-
-    const { group, color } = parseConfigCell(configCell);
+    const { group, color } = parseConfigCell(cells[0]);
 
     if (!groups.has(group)) groups.set(group, []);
     groups.get(group).push(row);
 
-    cardData.push({
-      row, group, color, configCell, panelCell, imageCell, contentCell,
-    });
+    rowMeta.push({ row, group, color });
 
-    // Hide config cell
-    if (configCell) configCell.classList.add('tabs-cell-hidden');
+    // Hide config cell, style panel and content cells
+    if (cells[0]) cells[0].classList.add('tabs-cell-hidden');
+    if (cells[1]) {
+      cells[1].classList.add('tabs-panel-left');
+      if (color) cells[1].style.backgroundColor = color;
+
+      // Move image into left panel bottom
+      if (cells[2]) {
+        const pic = cells[2].querySelector('picture');
+        if (pic) {
+          const imgWrapper = document.createElement('div');
+          imgWrapper.classList.add('tabs-panel-plate-image');
+          imgWrapper.appendChild(pic.cloneNode(true));
+          cells[1].appendChild(imgWrapper);
+        }
+        cells[2].classList.add('tabs-cell-hidden');
+      }
+    }
+    if (cells[3]) cells[3].classList.add('tabs-panel-right');
+
+    // Each row is a card — style it
+    row.classList.add('tabs-card');
   });
 
-  // Build tab navigation
+  // Build tab nav
   const tabNav = document.createElement('div');
   tabNav.classList.add('tabs-nav');
   tabNav.setAttribute('role', 'tablist');
   tabNav.setAttribute('aria-label', 'Promoted products');
 
-  const tabPanels = [];
-  let tabIndex = 0;
+  let isFirstGroup = true;
 
   groups.forEach((groupRows, groupName) => {
     const tabId = `tab-${groupName.toLowerCase().replace(/\s+/g, '-')}`;
-    const isFirst = tabIndex === 0;
 
-    // Create tab button
+    // Tab button
     const tabBtn = document.createElement('button');
     tabBtn.type = 'button';
     tabBtn.role = 'tab';
     tabBtn.id = `${tabId}-btn`;
     tabBtn.textContent = groupName;
     tabBtn.setAttribute('aria-controls', `${tabId}-panel`);
-    tabBtn.setAttribute('aria-selected', isFirst ? 'true' : 'false');
+    tabBtn.setAttribute('aria-selected', isFirstGroup ? 'true' : 'false');
     tabBtn.classList.add('tabs-nav-btn');
-    if (isFirst) tabBtn.classList.add('active');
-    tabBtn.tabIndex = isFirst ? 0 : -1;
+    if (isFirstGroup) tabBtn.classList.add('active');
+    tabBtn.tabIndex = isFirstGroup ? 0 : -1;
+    tabBtn.dataset.group = groupName;
     tabNav.appendChild(tabBtn);
 
-    // Create tab panel container
-    const panel = document.createElement('div');
-    panel.classList.add('tabs-panel');
-    panel.setAttribute('role', 'tabpanel');
-    panel.id = `${tabId}-panel`;
-    panel.setAttribute('aria-labelledby', `${tabId}-btn`);
-    if (!isFirst) panel.hidden = true;
-
-    // Watermark
-    const watermark = document.createElement('span');
-    watermark.classList.add('tabs-panel-watermark');
-    watermark.textContent = groupName;
-    panel.appendChild(watermark);
-
-    // Carousel container
-    const carousel = document.createElement('div');
-    carousel.classList.add('tabs-carousel');
-
-    // Add each card to the carousel
+    // Mark rows for this group
     groupRows.forEach((row, cardIdx) => {
-      const data = cardData.find((d) => d.row === row);
-      const card = document.createElement('div');
-      card.classList.add('tabs-card');
-      if (cardIdx > 0) card.classList.add('tabs-card-hidden');
-
-      // Left panel
-      if (data.panelCell) {
-        data.panelCell.classList.add('tabs-panel-left');
-        if (data.color) data.panelCell.style.backgroundColor = data.color;
-
-        // Move image into left panel
-        if (data.imageCell) {
-          const pic = data.imageCell.querySelector('picture');
-          if (pic) {
-            const imgWrapper = document.createElement('div');
-            imgWrapper.classList.add('tabs-panel-plate-image');
-            imgWrapper.appendChild(pic.cloneNode(true));
-            data.panelCell.appendChild(imgWrapper);
-          }
-          data.imageCell.classList.add('tabs-cell-hidden');
-        }
-
-        card.appendChild(data.panelCell);
-      }
-
-      // Right content
-      if (data.contentCell) {
-        data.contentCell.classList.add('tabs-panel-right');
-        card.appendChild(data.contentCell);
-      }
-
-      carousel.appendChild(card);
+      row.dataset.group = groupName;
+      // Hide non-first groups, hide non-first cards within a group
+      if (!isFirstGroup || cardIdx > 0) row.classList.add('tabs-card-hidden');
     });
 
-    panel.appendChild(carousel);
-
-    // Carousel controls (only if 2+ items in this group)
+    // Add carousel controls if 2+ cards
     if (groupRows.length > 1) {
       const controls = document.createElement('div');
       controls.classList.add('tabs-carousel-controls');
+      controls.dataset.group = groupName;
+      if (!isFirstGroup) controls.classList.add('tabs-card-hidden');
 
       const prevBtn = document.createElement('button');
       prevBtn.type = 'button';
@@ -175,33 +138,43 @@ export default function decorate(block) {
       nextBtn.setAttribute('aria-label', 'Next item');
 
       let currentCard = 0;
-      const cards = carousel.querySelectorAll('.tabs-card');
 
       const showCard = (idx) => {
-        cards.forEach((c, i) => c.classList.toggle('tabs-card-hidden', i !== idx));
+        groupRows.forEach((r, i) => r.classList.toggle('tabs-card-hidden', i !== idx));
         currentCard = idx;
       };
 
       prevBtn.addEventListener('click', () => {
-        showCard(currentCard > 0 ? currentCard - 1 : cards.length - 1);
+        showCard(currentCard > 0 ? currentCard - 1 : groupRows.length - 1);
       });
       nextBtn.addEventListener('click', () => {
-        showCard(currentCard < cards.length - 1 ? currentCard + 1 : 0);
+        showCard(currentCard < groupRows.length - 1 ? currentCard + 1 : 0);
       });
 
       controls.appendChild(prevBtn);
       controls.appendChild(nextBtn);
-      panel.appendChild(controls);
+
+      // Insert controls after the last row of this group
+      const lastRow = groupRows[groupRows.length - 1];
+      lastRow.after(controls);
     }
 
-    tabPanels.push(panel);
-    tabIndex += 1;
+    // Add watermark after tab nav (before first row of group)
+    const watermark = document.createElement('span');
+    watermark.classList.add('tabs-panel-watermark');
+    watermark.dataset.group = groupName;
+    watermark.textContent = groupName;
+    if (!isFirstGroup) watermark.classList.add('tabs-card-hidden');
+    groupRows[0].before(watermark);
+
+    isFirstGroup = false;
   });
 
-  // Tab switching
+  // Tab switching — show/hide rows and controls by group
   tabNav.addEventListener('click', (e) => {
     const btn = e.target.closest('.tabs-nav-btn');
     if (!btn) return;
+    const activeGroup = btn.dataset.group;
 
     tabNav.querySelectorAll('.tabs-nav-btn').forEach((b) => {
       b.classList.remove('active');
@@ -212,8 +185,23 @@ export default function decorate(block) {
     btn.setAttribute('aria-selected', 'true');
     btn.tabIndex = 0;
 
-    const panelId = btn.getAttribute('aria-controls');
-    tabPanels.forEach((p) => { p.hidden = p.id !== panelId; });
+    // Show/hide cards, watermarks, and carousel controls by group
+    block.querySelectorAll('.tabs-card, .tabs-panel-watermark, .tabs-carousel-controls').forEach((el) => {
+      if (el.dataset.group === activeGroup) {
+        el.classList.remove('tabs-card-hidden');
+      } else {
+        el.classList.add('tabs-card-hidden');
+      }
+    });
+
+    // For the active group, show only the first card (reset carousel)
+    const activeRows = groups.get(activeGroup);
+    if (activeRows) {
+      activeRows.forEach((r, i) => {
+        if (i > 0) r.classList.add('tabs-card-hidden');
+        else r.classList.remove('tabs-card-hidden');
+      });
+    }
   });
 
   // Keyboard navigation
@@ -228,8 +216,6 @@ export default function decorate(block) {
     tabs[newIdx].focus();
   });
 
-  // Rebuild block: nav + panels (replaces old row-based DOM)
-  block.textContent = '';
-  block.appendChild(tabNav);
-  tabPanels.forEach((p) => block.appendChild(p));
+  // Prepend tab nav — don't destroy any existing DOM
+  block.prepend(tabNav);
 }
