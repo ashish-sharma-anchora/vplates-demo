@@ -54,13 +54,8 @@
   display: none;
 }
 
-/* Tab panel */
-.tabs-promo-gallery .tabs-panel[hidden] {
-  display: none;
-}
-
-/* Panel body — two-column split + watermark */
-.tabs-promo-gallery .tabs-panel-body {
+/* Tab panel — row acts as the two-column container */
+.tabs-promo-gallery .tabs-panel {
   display: grid;
   grid-template-columns: 1fr;
   position: relative;
@@ -69,9 +64,13 @@
 }
 
 @media (width >= 769px) {
-  .tabs-promo-gallery .tabs-panel-body {
+  .tabs-promo-gallery .tabs-panel {
     grid-template-columns: 45% 1fr;
   }
+}
+
+.tabs-promo-gallery .tabs-panel[hidden] {
+  display: none;
 }
 
 /* Watermark — large semi-transparent title behind panel */
@@ -107,7 +106,7 @@
   min-height: 350px;
 }
 
-/* ALL text inside the left panel must be white */
+/* ALL text inside left panel is white */
 .tabs-promo-gallery .tabs-panel-left h1,
 .tabs-promo-gallery .tabs-panel-left h2,
 .tabs-promo-gallery .tabs-panel-left h3,
@@ -133,7 +132,7 @@
   color: var(--color-white);
 }
 
-/* Plate image — centered at bottom of panel, overlapping below */
+/* Plate image — centered at bottom of panel, overlapping */
 .tabs-promo-gallery .tabs-panel-plate-image {
   position: absolute;
   bottom: -10px;
@@ -174,7 +173,7 @@
   margin: 0 0 var(--spacing-l);
 }
 
-/* CTA links as outlined buttons — override EDS .button */
+/* CTA links — outlined button, override EDS .button */
 .tabs-promo-gallery .tabs-panel-right a,
 .tabs-promo-gallery .tabs-panel-right a.button {
   display: inline-block;

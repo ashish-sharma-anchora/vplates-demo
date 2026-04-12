@@ -1,12 +1,10 @@
 /**
  * Tabs Promo Gallery — preserves child DOM for Universal Editor.
- * Each row = one Promo Tab with cells:
- *   [tabLabel, panelColor, panelBody, panelImage]
- *
- * panelBody richtext: Use --- (horizontal rule) to separate
- * left panel content from right-side content.
- * Everything before --- = left colored panel.
- * Everything after --- = right content area with CTA.
+ * Each row = one Promo Tab with 4 cells (after field grouping):
+ *   Cell 0: config (grouped: config_label + config_color)
+ *   Cell 1: panel (richtext — left panel content)
+ *   Cell 2: image (plate image reference)
+ *   Cell 3: content (richtext — right side content + CTA)
  */
 export default function decorate(block) {
   const rows = [...block.children];
@@ -20,27 +18,52 @@ export default function decorate(block) {
 
   rows.forEach((row, index) => {
     const cells = [...row.children];
-    const labelCell = cells[0];
-    const colorCell = cells[1];
-    const bodyCell = cells[2];
-    const imageCell = cells[3];
+    // Cell 0: config (label + color grouped), Cell 1: panel, Cell 2: image, Cell 3: content
+    const configCell = cells[0];
+    const panelCell = cells[1];
+    const imageCell = cells[2];
+    const contentCell = cells[3];
 
-    const tabLabel = labelCell ? labelCell.textContent.trim() : `Tab ${index + 1}`;
-    const tabId = `tab-${tabLabel.toLowerCase().replace(/\s+/g, '-')}`;
-
-    // Extract panel color — EDS may convert "#43b02a" to a link <a href="#43b02a">
+    // Extract label and color from config cell
+    // Config cell contains two values — label text and color hex
+    let tabLabel = `Tab ${index + 1}`;
     let panelColor = '';
-    if (colorCell) {
-      const link = colorCell.querySelector('a');
+    if (configCell) {
+      const texts = [];
+      configCell.querySelectorAll('p, span, div').forEach((el) => {
+        const t = el.textContent.trim();
+        if (t) texts.push(t);
+      });
+      // Also check for links (EDS converts #hex to links)
+      const link = configCell.querySelector('a');
       if (link) {
-        // EDS converted the hex color to a link — extract from href or text
-        const href = link.getAttribute('href') || '';
-        const text = link.textContent.trim();
-        panelColor = text.startsWith('#') ? text : href;
-      } else {
-        panelColor = colorCell.textContent.trim();
+        const linkText = link.textContent.trim();
+        if (linkText.startsWith('#')) {
+          panelColor = linkText;
+        }
+      }
+      // First non-color text is the label
+      if (texts.length > 0) {
+        const nonColorTexts = texts.filter((t) => !t.startsWith('#'));
+        const colorTexts = texts.filter((t) => t.startsWith('#'));
+        if (nonColorTexts.length > 0) [tabLabel] = nonColorTexts;
+        if (colorTexts.length > 0 && !panelColor) [panelColor] = colorTexts;
+      }
+      // Fallback: if configCell has plain text
+      if (tabLabel === `Tab ${index + 1}`) {
+        const plainText = configCell.textContent.trim();
+        if (plainText) {
+          // Try to split by line breaks or by # character
+          const parts = plainText.split(/\n|(?=#)/).map((p) => p.trim()).filter(Boolean);
+          parts.forEach((p) => {
+            if (p.startsWith('#') && !panelColor) panelColor = p;
+            else if (!tabLabel || tabLabel === `Tab ${index + 1}`) tabLabel = p;
+          });
+        }
       }
     }
+
+    const tabId = `tab-${tabLabel.toLowerCase().replace(/\s+/g, '-')}`;
 
     // Mark row as tab panel
     row.classList.add('tabs-panel');
@@ -49,56 +72,39 @@ export default function decorate(block) {
     row.setAttribute('aria-labelledby', `${tabId}-btn`);
     if (index !== 0) row.hidden = true;
 
-    // Hide label and color cells
-    if (labelCell) labelCell.classList.add('tabs-cell-hidden');
-    if (colorCell) colorCell.classList.add('tabs-cell-hidden');
+    // Hide config cell
+    if (configCell) configCell.classList.add('tabs-cell-hidden');
 
-    // Process body cell — split at <hr> into left and right
-    if (bodyCell) {
-      const leftDiv = document.createElement('div');
-      leftDiv.classList.add('tabs-panel-left');
-      const rightDiv = document.createElement('div');
-      rightDiv.classList.add('tabs-panel-right');
-
-      let currentTarget = leftDiv;
-      [...bodyCell.children].forEach((child) => {
-        if (child.tagName === 'HR') {
-          currentTarget = rightDiv;
-        } else {
-          currentTarget.appendChild(child.cloneNode(true));
-        }
-      });
-
-      // Apply panel color
+    // Style panel cell (left)
+    if (panelCell) {
+      panelCell.classList.add('tabs-panel-left');
       if (panelColor) {
-        leftDiv.style.backgroundColor = panelColor;
+        panelCell.style.backgroundColor = panelColor;
       }
-
-      // Move image into left panel at bottom with absolute positioning
-      if (imageCell) {
-        const pic = imageCell.querySelector('picture');
-        if (pic) {
-          const imgWrapper = document.createElement('div');
-          imgWrapper.classList.add('tabs-panel-plate-image');
-          imgWrapper.appendChild(pic.cloneNode(true));
-          leftDiv.appendChild(imgWrapper);
-        }
-        imageCell.classList.add('tabs-cell-hidden');
-      }
-
-      // Replace body cell content
-      bodyCell.textContent = '';
-      bodyCell.classList.add('tabs-panel-body');
-
-      // Add watermark title
-      const watermark = document.createElement('span');
-      watermark.classList.add('tabs-panel-watermark');
-      watermark.textContent = tabLabel;
-      bodyCell.appendChild(watermark);
-
-      bodyCell.appendChild(leftDiv);
-      bodyCell.appendChild(rightDiv);
     }
+
+    // Move image into panel cell at bottom
+    if (imageCell && panelCell) {
+      const pic = imageCell.querySelector('picture');
+      if (pic) {
+        const imgWrapper = document.createElement('div');
+        imgWrapper.classList.add('tabs-panel-plate-image');
+        imgWrapper.appendChild(pic.cloneNode(true));
+        panelCell.appendChild(imgWrapper);
+      }
+      imageCell.classList.add('tabs-cell-hidden');
+    }
+
+    // Style content cell (right)
+    if (contentCell) {
+      contentCell.classList.add('tabs-panel-right');
+    }
+
+    // Add watermark title to the row
+    const watermark = document.createElement('span');
+    watermark.classList.add('tabs-panel-watermark');
+    watermark.textContent = tabLabel;
+    row.appendChild(watermark);
 
     // Create tab button
     const tabBtn = document.createElement('button');

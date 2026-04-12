@@ -311,32 +311,40 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "tabLabel",
+        "name": "config_label",
         "label": "Tab Label",
         "description": "Category name shown on the tab (e.g., Business, Sports)"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "panelColor",
+        "name": "config_color",
         "label": "Panel Color",
-        "description": "Hex color for the left panel background (e.g., #43b02a for green, #000 for black)"
+        "description": "Hex color for the left panel (e.g., #43b02a for green, #000 for black)"
       },
       {
         "component": "richtext",
-        "name": "panelBody",
+        "name": "panel",
         "value": "",
         "label": "Panel Content (Left)",
-        "description": "Left panel: heading and description text",
+        "description": "Left colored panel: heading, description text",
         "valueType": "string"
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "panelImage",
+        "name": "image",
         "label": "Panel Image",
-        "description": "Plate image shown at the bottom of the left panel",
+        "description": "Plate image at the bottom of the left panel",
         "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "value": "",
+        "label": "Panel Content (Right)",
+        "description": "Right side: description and Learn More link",
+        "valueType": "string"
       }
     ]
   }
