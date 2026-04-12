@@ -14,8 +14,6 @@ header .nav-wrapper {
   background-color: var(--color-black);
   color: var(--color-white);
   width: 100%;
-  z-index: 10;
-  position: fixed;
   height: 60px;
   overflow: hidden;
   font-family: var(--body-font-family);
@@ -23,7 +21,6 @@ header .nav-wrapper {
 
 @media (width >= 769px) {
   header .nav-wrapper {
-    position: relative;
     height: 110px;
   }
 }
