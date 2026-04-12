@@ -133,11 +133,6 @@ export default function decorate(block) {
   // Click plate display to focus input
   plateDisplay.addEventListener('click', () => plateInput.focus());
 
-  // Disclaimer
-  const disclaimer = document.createElement('p');
-  disclaimer.classList.add('hero-plate-checker-disclaimer');
-  disclaimer.innerHTML = '<em>Representation of plates provided are for illustrative purposes only</em>';
-
   // Popular plates link
   const popularEl = document.createElement('p');
   popularEl.classList.add('hero-plate-checker-popular');
@@ -160,7 +155,6 @@ export default function decorate(block) {
   formCol.appendChild(inputGroup);
   formCol.appendChild(plateInput);
   formCol.appendChild(ctaBtn);
-  formCol.appendChild(disclaimer);
   formCol.appendChild(popularEl);
 
   // === Assemble preview column ===

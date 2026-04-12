@@ -207,7 +207,7 @@
   text-transform: var(--button-text-transform);
   letter-spacing: var(--button-letter-spacing);
   line-height: 1.6;
-  padding: var(--button-padding);
+  padding: 12px 34px;
   border-radius: var(--button-border-radius);
   text-decoration: none;
   text-align: center;
@@ -215,7 +215,6 @@
   margin-top: 26px;
   max-width: 250px;
   width: 100%;
-  min-height: 48px;
 }
 
 @media (width >= 769px) {
@@ -233,26 +232,6 @@
 .hero-plate-checker-cta.disabled {
   opacity: 0.5;
   pointer-events: none;
-}
-
-/* Disclaimer */
-.hero-plate-checker-disclaimer {
-  font-size: 14px;
-  color: var(--color-light-grey);
-  position: relative;
-  margin: 16px 0 24px;
-  padding-left: 30px;
-}
-
-.hero-plate-checker-disclaimer::before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--color-mid-grey);
-  border-radius: 50%;
 }
 
 /* See popular plates link */
@@ -323,7 +302,7 @@
   padding: 10px 24px 16px;
   text-align: center;
   position: relative;
-  min-width: 260px;
+  width: 340px;
 }
 
 /* Dots around the plate border */
@@ -361,7 +340,7 @@
   }
 
   .plate-frame {
-    min-width: 340px;
+    width: 340px;
     padding: 12px 32px 20px;
   }
 
