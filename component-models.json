@@ -181,21 +181,24 @@
     ]
   },
   {
-    "id": "columns-cta-tiles",
+    "id": "cta-tile",
     "fields": [
       {
         "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "4",
-        "label": "Columns"
+        "valueType": "string",
+        "name": "heading",
+        "label": "Title"
       },
       {
         "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "1",
-        "label": "Rows"
+        "valueType": "string",
+        "name": "summary",
+        "label": "Description"
+      },
+      {
+        "component": "aem-content",
+        "name": "tileLink",
+        "label": "Link"
       }
     ]
   },

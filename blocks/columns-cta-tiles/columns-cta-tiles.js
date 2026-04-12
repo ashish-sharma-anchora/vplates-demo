@@ -1,27 +1,40 @@
 export default function decorate(block) {
-  const row = block.firstElementChild;
-  if (!row) return;
+  // Each row is a CTA tile item with cells: [tileTitle, tileDescription, tileLink]
+  const rows = [...block.children];
 
-  const cols = [...row.children];
-  block.classList.add(`columns-cta-tiles-${cols.length}-cols`);
+  rows.forEach((row) => {
+    row.classList.add('cta-tile');
 
-  // Wrap each column as a clickable tile
-  cols.forEach((col) => {
-    col.classList.add('cta-tile');
+    const cells = [...row.children];
+    const titleCell = cells[0];
+    const descCell = cells[1];
+    const linkCell = cells[2];
 
-    // Find the link and make the whole tile clickable
-    const link = col.querySelector('a');
-    if (link) {
-      col.addEventListener('click', () => {
-        window.location.href = link.href;
+    // Get the link href
+    const link = linkCell ? linkCell.querySelector('a') : null;
+    const href = link ? link.href : '#';
+
+    // Make the whole tile clickable
+    if (href !== '#') {
+      row.addEventListener('click', () => {
+        window.location.href = href;
       });
-      col.style.cursor = 'pointer';
+      row.style.cursor = 'pointer';
     }
+
+    // Style the title
+    if (titleCell) titleCell.classList.add('cta-tile-title');
+
+    // Style the description
+    if (descCell) descCell.classList.add('cta-tile-description');
+
+    // Hide the link cell (whole tile is clickable)
+    if (linkCell) linkCell.classList.add('cta-tile-link');
 
     // Add arrow indicator
     const arrow = document.createElement('span');
     arrow.classList.add('cta-tile-arrow');
     arrow.setAttribute('aria-hidden', 'true');
-    col.appendChild(arrow);
+    row.appendChild(arrow);
   });
 }

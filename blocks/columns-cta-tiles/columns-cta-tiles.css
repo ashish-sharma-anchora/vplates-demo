@@ -10,19 +10,20 @@
   padding: 0;
 }
 
-.columns-cta-tiles > div {
+/* Tiles displayed as horizontal grid */
+.columns-cta-tiles {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
 }
 
 @media (width >= 769px) {
-  .columns-cta-tiles > div {
+  .columns-cta-tiles {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Individual tile */
+/* Individual tile (each row = one tile) */
 .columns-cta-tiles .cta-tile {
   display: flex;
   flex-direction: column;
@@ -51,7 +52,7 @@
 }
 
 /* Tile title */
-.columns-cta-tiles .cta-tile h3 {
+.columns-cta-tiles .cta-tile-title {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   font-weight: 700;
@@ -60,16 +61,16 @@
   margin: 0 0 4px;
 }
 
-/* Tile subtitle */
-.columns-cta-tiles .cta-tile p {
+/* Tile description */
+.columns-cta-tiles .cta-tile-description {
   font-size: var(--body-font-size-xxxs);
   color: var(--color-mid-grey);
   margin: 0;
   line-height: 1.4;
 }
 
-/* Override EDS auto-button styling — hide the button-styled link */
-.columns-cta-tiles .cta-tile .button-container {
+/* Hide the link cell (whole tile is clickable) */
+.columns-cta-tiles .cta-tile-link {
   display: none;
 }
 
