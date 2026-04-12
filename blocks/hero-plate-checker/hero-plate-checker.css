@@ -35,12 +35,12 @@
   }
 
   .hero-plate-checker-form {
-    width: calc(100% - 420px);
+    flex: 0 0 calc(100% - 420px);
     margin-right: 20px;
   }
 
   .hero-plate-checker-preview {
-    width: 400px;
+    flex: 0 0 400px;
   }
 }
 
@@ -54,7 +54,7 @@
   }
 
   .hero-plate-checker-form {
-    width: 500px;
+    flex: 0 0 500px;
   }
 
   .hero-plate-checker-title {
@@ -74,7 +74,7 @@
 
 /* Form column (left) */
 .hero-plate-checker-form {
-  flex: 1 1 auto;
+  flex: 1 1 0%;
 }
 
 .hero-plate-checker-title {
