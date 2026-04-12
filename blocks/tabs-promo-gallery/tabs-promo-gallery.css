@@ -100,10 +100,10 @@
    LEFT PANEL — colored background, white text
    ============================================= */
 .tabs-promo-gallery .tabs-panel-left {
-  padding: 26px;
+  padding: 26px 26px 80px;
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  overflow: visible;
   min-height: 350px;
 }
 
@@ -133,31 +133,18 @@
   color: var(--color-white);
 }
 
-/* Plate image — positioned at bottom of panel, overlapping */
+/* Plate image — centered at bottom of panel, overlapping below */
 .tabs-promo-gallery .tabs-panel-plate-image {
   position: absolute;
-  bottom: -20px;
-  right: 10%;
-  width: 70%;
-  max-width: 200px;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 300px;
   z-index: 2;
 }
 
 .tabs-promo-gallery .tabs-panel-plate-image img {
-  width: 100%;
-  height: auto;
-}
-
-/* Also handle images placed inline in richtext */
-.tabs-promo-gallery .tabs-panel-left picture {
-  position: absolute;
-  bottom: -20px;
-  right: 10%;
-  width: 70%;
-  max-width: 200px;
-}
-
-.tabs-promo-gallery .tabs-panel-left picture img {
   width: 100%;
   height: auto;
 }
