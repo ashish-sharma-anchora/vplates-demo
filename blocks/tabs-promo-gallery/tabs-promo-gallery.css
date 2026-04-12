@@ -49,7 +49,7 @@
   border-bottom-color: var(--color-text-primary);
 }
 
-/* Hidden cells (label, color, image source) */
+/* Hidden cells */
 .tabs-promo-gallery .tabs-cell-hidden {
   display: none;
 }
@@ -59,7 +59,7 @@
   display: none;
 }
 
-/* Panel body — contains the split layout + watermark */
+/* Panel body — two-column split + watermark */
 .tabs-promo-gallery .tabs-panel-body {
   display: grid;
   grid-template-columns: 1fr;
@@ -70,11 +70,11 @@
 
 @media (width >= 769px) {
   .tabs-promo-gallery .tabs-panel-body {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 45% 1fr;
   }
 }
 
-/* Watermark title — large semi-transparent background text */
+/* Watermark — large semi-transparent title behind panel */
 .tabs-promo-gallery .tabs-panel-watermark {
   position: absolute;
   color: var(--color-black);
@@ -92,51 +92,92 @@
 
 @media (width >= 1080px) {
   .tabs-promo-gallery .tabs-panel-watermark {
-    font-size: 700px;
+    font-size: 500px;
   }
 }
 
-/* Left panel — colored background with white text */
+/* =============================================
+   LEFT PANEL — colored background, white text
+   ============================================= */
 .tabs-promo-gallery .tabs-panel-left {
-  padding: 30px;
+  padding: 26px;
   position: relative;
   z-index: 1;
-  color: var(--color-white);
+  overflow: hidden;
+  min-height: 350px;
 }
 
-.tabs-promo-gallery .tabs-panel-left h4,
+/* ALL text inside the left panel must be white */
+.tabs-promo-gallery .tabs-panel-left h1,
+.tabs-promo-gallery .tabs-panel-left h2,
 .tabs-promo-gallery .tabs-panel-left h3,
-.tabs-promo-gallery .tabs-panel-left strong {
+.tabs-promo-gallery .tabs-panel-left h4,
+.tabs-promo-gallery .tabs-panel-left h5,
+.tabs-promo-gallery .tabs-panel-left h6 {
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-xl);
+  font-size: 35px;
+  line-height: 1;
   font-weight: 700;
-  line-height: 1.0;
   color: var(--color-white);
-  margin: 0 0 var(--spacing-m);
-  display: block;
+  margin: 0 0 20px;
 }
 
 .tabs-promo-gallery .tabs-panel-left p {
-  font-size: var(--body-font-size-xs);
+  font-size: 14px;
   line-height: 1.5;
   color: var(--color-white);
   margin: 0 0 var(--spacing-m);
 }
 
-.tabs-promo-gallery .tabs-panel-left img {
-  max-width: 100%;
-  height: auto;
-  margin-top: var(--spacing-l);
+.tabs-promo-gallery .tabs-panel-left strong {
+  color: var(--color-white);
 }
 
-/* Right panel — content area with description + CTA */
+/* Plate image — positioned at bottom of panel, overlapping */
+.tabs-promo-gallery .tabs-panel-plate-image {
+  position: absolute;
+  bottom: -20px;
+  right: 10%;
+  width: 70%;
+  max-width: 200px;
+  z-index: 2;
+}
+
+.tabs-promo-gallery .tabs-panel-plate-image img {
+  width: 100%;
+  height: auto;
+}
+
+/* Also handle images placed inline in richtext */
+.tabs-promo-gallery .tabs-panel-left picture {
+  position: absolute;
+  bottom: -20px;
+  right: 10%;
+  width: 70%;
+  max-width: 200px;
+}
+
+.tabs-promo-gallery .tabs-panel-left picture img {
+  width: 100%;
+  height: auto;
+}
+
+/* =============================================
+   RIGHT PANEL — content area with CTA
+   ============================================= */
 .tabs-promo-gallery .tabs-panel-right {
-  padding: 30px;
+  padding: 20px 9%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
+}
+
+@media (width >= 1080px) {
+  .tabs-promo-gallery .tabs-panel-right {
+    padding: 72px 60px 0;
+  }
 }
 
 .tabs-promo-gallery .tabs-panel-right p {
@@ -146,7 +187,7 @@
   margin: 0 0 var(--spacing-l);
 }
 
-/* CTA links as outlined buttons — override EDS .button auto-styling */
+/* CTA links as outlined buttons — override EDS .button */
 .tabs-promo-gallery .tabs-panel-right a,
 .tabs-promo-gallery .tabs-panel-right a.button {
   display: inline-block;

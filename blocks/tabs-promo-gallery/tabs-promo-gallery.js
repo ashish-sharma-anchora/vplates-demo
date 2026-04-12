@@ -7,8 +7,6 @@
  * left panel content from right-side content.
  * Everything before --- = left colored panel.
  * Everything after --- = right content area with CTA.
- *
- * JS also creates a large watermark title behind each tab panel.
  */
 export default function decorate(block) {
   const rows = [...block.children];
@@ -22,15 +20,27 @@ export default function decorate(block) {
 
   rows.forEach((row, index) => {
     const cells = [...row.children];
-    // Cells: 0=tabLabel, 1=panelColor, 2=panelBody, 3=panelImage
     const labelCell = cells[0];
     const colorCell = cells[1];
     const bodyCell = cells[2];
     const imageCell = cells[3];
 
     const tabLabel = labelCell ? labelCell.textContent.trim() : `Tab ${index + 1}`;
-    const panelColor = colorCell ? colorCell.textContent.trim() : '';
     const tabId = `tab-${tabLabel.toLowerCase().replace(/\s+/g, '-')}`;
+
+    // Extract panel color — EDS may convert "#43b02a" to a link <a href="#43b02a">
+    let panelColor = '';
+    if (colorCell) {
+      const link = colorCell.querySelector('a');
+      if (link) {
+        // EDS converted the hex color to a link — extract from href or text
+        const href = link.getAttribute('href') || '';
+        const text = link.textContent.trim();
+        panelColor = text.startsWith('#') ? text : href;
+      } else {
+        panelColor = colorCell.textContent.trim();
+      }
+    }
 
     // Mark row as tab panel
     row.classList.add('tabs-panel');
@@ -43,7 +53,7 @@ export default function decorate(block) {
     if (labelCell) labelCell.classList.add('tabs-cell-hidden');
     if (colorCell) colorCell.classList.add('tabs-cell-hidden');
 
-    // Split panelBody content at <hr> into left and right
+    // Process body cell — split at <hr> into left and right
     if (bodyCell) {
       const leftDiv = document.createElement('div');
       leftDiv.classList.add('tabs-panel-left');
@@ -59,25 +69,28 @@ export default function decorate(block) {
         }
       });
 
-      // Apply panel color to left side
+      // Apply panel color
       if (panelColor) {
         leftDiv.style.backgroundColor = panelColor;
       }
 
-      // Move image into left panel (at the bottom)
+      // Move image into left panel at bottom with absolute positioning
       if (imageCell) {
-        const img = imageCell.querySelector('img, picture');
-        if (img) {
-          leftDiv.appendChild(img.cloneNode(true));
+        const pic = imageCell.querySelector('picture');
+        if (pic) {
+          const imgWrapper = document.createElement('div');
+          imgWrapper.classList.add('tabs-panel-plate-image');
+          imgWrapper.appendChild(pic.cloneNode(true));
+          leftDiv.appendChild(imgWrapper);
         }
         imageCell.classList.add('tabs-cell-hidden');
       }
 
-      // Replace bodyCell content with split layout
+      // Replace body cell content
       bodyCell.textContent = '';
       bodyCell.classList.add('tabs-panel-body');
 
-      // Add watermark title behind the panel
+      // Add watermark title
       const watermark = document.createElement('span');
       watermark.classList.add('tabs-panel-watermark');
       watermark.textContent = tabLabel;
@@ -135,6 +148,5 @@ export default function decorate(block) {
     tabs[newIdx].focus();
   });
 
-  // Insert tab nav before rows
   block.prepend(tabNav);
 }
