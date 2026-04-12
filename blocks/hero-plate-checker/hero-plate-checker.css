@@ -228,7 +228,7 @@
 }
 
 @media (width >= 769px) {
-  .hero-plate-checker-cta {
+  .hero-plate-checker .hero-plate-checker-cta {
     display: inline-block;
   }
 }
