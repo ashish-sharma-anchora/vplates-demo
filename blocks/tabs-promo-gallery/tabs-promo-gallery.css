@@ -49,45 +49,71 @@
   border-bottom-color: var(--color-text-primary);
 }
 
-/* Tab panel — two-column split: colored panel (left) + content (right) */
-.tabs-promo-gallery .tabs-panel {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 400px;
+/* Hidden cells (label, color, image source) */
+.tabs-promo-gallery .tabs-cell-hidden {
+  display: none;
 }
 
-@media (width >= 769px) {
-  .tabs-promo-gallery .tabs-panel {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
+/* Tab panel */
 .tabs-promo-gallery .tabs-panel[hidden] {
   display: none;
 }
 
-/* Hide label and color cells in rendered view */
-.tabs-promo-gallery .tabs-panel-label,
-.tabs-promo-gallery .tabs-panel-color {
-  display: none;
+/* Panel body — contains the split layout + watermark */
+.tabs-promo-gallery .tabs-panel-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+@media (width >= 769px) {
+  .tabs-promo-gallery .tabs-panel-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Watermark title — large semi-transparent background text */
+.tabs-promo-gallery .tabs-panel-watermark {
+  position: absolute;
+  color: var(--color-black);
+  opacity: 0.05;
+  font-family: var(--heading-font-family);
+  font-size: 280px;
+  line-height: 1;
+  white-space: nowrap;
+  font-weight: 700;
+  pointer-events: none;
+  top: 20px;
+  left: -30px;
+  z-index: 0;
+}
+
+@media (width >= 1080px) {
+  .tabs-promo-gallery .tabs-panel-watermark {
+    font-size: 700px;
+  }
 }
 
 /* Left panel — colored background with white text */
 .tabs-promo-gallery .tabs-panel-left {
   padding: 30px;
-  border-radius: var(--border-radius-m) 0 0 var(--border-radius-m);
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+  color: var(--color-white);
 }
 
 .tabs-promo-gallery .tabs-panel-left h4,
-.tabs-promo-gallery .tabs-panel-left h3 {
+.tabs-promo-gallery .tabs-panel-left h3,
+.tabs-promo-gallery .tabs-panel-left strong {
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-xl);
   font-weight: 700;
   line-height: 1.0;
   color: var(--color-white);
   margin: 0 0 var(--spacing-m);
+  display: block;
 }
 
 .tabs-promo-gallery .tabs-panel-left p {
@@ -109,6 +135,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .tabs-promo-gallery .tabs-panel-right p {

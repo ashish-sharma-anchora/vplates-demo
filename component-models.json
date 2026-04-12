@@ -327,16 +327,16 @@
         "name": "panelBody",
         "value": "",
         "label": "Panel Content (Left)",
-        "description": "Left panel: heading, description, and plate image",
+        "description": "Left panel: heading and description text",
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "contentBody",
-        "value": "",
-        "label": "Content (Right)",
-        "description": "Right side: description text and Learn More CTA link",
-        "valueType": "string"
+        "component": "reference",
+        "valueType": "string",
+        "name": "panelImage",
+        "label": "Panel Image",
+        "description": "Plate image shown at the bottom of the left panel",
+        "multi": false
       }
     ]
   }

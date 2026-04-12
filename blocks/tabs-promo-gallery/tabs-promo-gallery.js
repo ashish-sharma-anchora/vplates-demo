@@ -1,7 +1,14 @@
 /**
  * Tabs Promo Gallery — preserves child DOM for Universal Editor.
- * Each row = one Promo Tab with cells: [tabLabel, panelColor, panelBody, contentBody].
- * JS adds tab navigation and decorates the two-column panel layout.
+ * Each row = one Promo Tab with cells:
+ *   [tabLabel, panelColor, panelBody, panelImage]
+ *
+ * panelBody richtext: Use --- (horizontal rule) to separate
+ * left panel content from right-side content.
+ * Everything before --- = left colored panel.
+ * Everything after --- = right content area with CTA.
+ *
+ * JS also creates a large watermark title behind each tab panel.
  */
 export default function decorate(block) {
   const rows = [...block.children];
@@ -15,11 +22,11 @@ export default function decorate(block) {
 
   rows.forEach((row, index) => {
     const cells = [...row.children];
-    // Cells: 0=tabLabel, 1=panelColor, 2=panelBody (left panel), 3=contentBody (right)
+    // Cells: 0=tabLabel, 1=panelColor, 2=panelBody, 3=panelImage
     const labelCell = cells[0];
     const colorCell = cells[1];
-    const panelCell = cells[2];
-    const contentCell = cells[3];
+    const bodyCell = cells[2];
+    const imageCell = cells[3];
 
     const tabLabel = labelCell ? labelCell.textContent.trim() : `Tab ${index + 1}`;
     const panelColor = colorCell ? colorCell.textContent.trim() : '';
@@ -32,18 +39,53 @@ export default function decorate(block) {
     row.setAttribute('aria-labelledby', `${tabId}-btn`);
     if (index !== 0) row.hidden = true;
 
-    // Mark cells with roles
-    if (labelCell) labelCell.classList.add('tabs-panel-label');
-    if (colorCell) colorCell.classList.add('tabs-panel-color');
-    if (panelCell) {
-      panelCell.classList.add('tabs-panel-left');
-      // Apply background color from authored value
+    // Hide label and color cells
+    if (labelCell) labelCell.classList.add('tabs-cell-hidden');
+    if (colorCell) colorCell.classList.add('tabs-cell-hidden');
+
+    // Split panelBody content at <hr> into left and right
+    if (bodyCell) {
+      const leftDiv = document.createElement('div');
+      leftDiv.classList.add('tabs-panel-left');
+      const rightDiv = document.createElement('div');
+      rightDiv.classList.add('tabs-panel-right');
+
+      let currentTarget = leftDiv;
+      [...bodyCell.children].forEach((child) => {
+        if (child.tagName === 'HR') {
+          currentTarget = rightDiv;
+        } else {
+          currentTarget.appendChild(child.cloneNode(true));
+        }
+      });
+
+      // Apply panel color to left side
       if (panelColor) {
-        panelCell.style.backgroundColor = panelColor;
-        panelCell.style.color = '#fff';
+        leftDiv.style.backgroundColor = panelColor;
       }
+
+      // Move image into left panel (at the bottom)
+      if (imageCell) {
+        const img = imageCell.querySelector('img, picture');
+        if (img) {
+          leftDiv.appendChild(img.cloneNode(true));
+        }
+        imageCell.classList.add('tabs-cell-hidden');
+      }
+
+      // Replace bodyCell content with split layout
+      bodyCell.textContent = '';
+      bodyCell.classList.add('tabs-panel-body');
+
+      // Add watermark title behind the panel
+      const watermark = document.createElement('span');
+      watermark.classList.add('tabs-panel-watermark');
+      watermark.textContent = tabLabel;
+      bodyCell.appendChild(watermark);
+
+      bodyCell.appendChild(leftDiv);
+      bodyCell.appendChild(rightDiv);
     }
-    if (contentCell) contentCell.classList.add('tabs-panel-right');
 
     // Create tab button
     const tabBtn = document.createElement('button');
