@@ -152,18 +152,12 @@
    RIGHT PANEL — content area with CTA
    ============================================= */
 .tabs-promo-gallery .tabs-panel-right {
-  padding: 20px 9%;
+  padding: 26px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   z-index: 1;
-}
-
-@media (width >= 1080px) {
-  .tabs-promo-gallery .tabs-panel-right {
-    padding: 72px 60px 0;
-  }
 }
 
 .tabs-promo-gallery .tabs-panel-right p {
