@@ -121,7 +121,7 @@
 
   /* Section spacing */
   --section-padding: 40px 0;
-  --section-gap: 40px;
+  --section-gap: 0;
 
   /* ======================
      LAYOUT
