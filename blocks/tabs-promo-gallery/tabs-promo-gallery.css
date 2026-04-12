@@ -139,7 +139,6 @@
   position: absolute;
   bottom: -10px;
   left: 50%;
-  transform: translateX(-50%);
   width: 80%;
   max-width: 300px;
   z-index: 2;
