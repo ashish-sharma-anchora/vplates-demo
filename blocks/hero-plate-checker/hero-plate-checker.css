@@ -153,13 +153,18 @@
   margin: 0 0 var(--spacing-xs) 0;
 }
 
-/* See popular plates link — override button styles */
+/* See popular plates link — override EDS .button auto-styling */
 .hero-plate-checker-popular {
   margin: 0;
 }
 
+.hero-plate-checker-popular .button-container {
+  margin: 0;
+}
+
 .hero-plate-checker-popular a,
-.hero-plate-checker-popular a.button {
+.hero-plate-checker-popular a.button,
+.hero-plate-checker-popular .button-container a {
   display: inline;
   background-color: transparent;
   border: none;
@@ -178,7 +183,8 @@
   margin-right: 4px;
 }
 
-.hero-plate-checker-popular a:hover {
+.hero-plate-checker-popular a:hover,
+.hero-plate-checker-popular a.button:hover {
   color: var(--color-brand-green);
   background-color: transparent;
 }

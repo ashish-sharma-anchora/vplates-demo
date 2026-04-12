@@ -30,13 +30,14 @@
   border-bottom: 2px solid transparent;
   padding: var(--spacing-s) var(--spacing-l);
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-m);
   font-weight: 400;
   color: var(--color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
   transition: color var(--transition-base), border-color var(--transition-base);
   min-width: max-content;
+  text-transform: none;
 }
 
 .tabs-promo-gallery .tabs-nav-btn:hover {
@@ -63,11 +64,14 @@
   overflow: hidden;
 }
 
-/* Carousel item — split layout */
+/* Carousel item — split layout: colored panel (left) + content (right) */
 .tabs-promo-gallery .carousel-item {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-xxl);
+  gap: 0;
+  background-color: var(--color-off-white);
+  border-radius: var(--border-radius-m);
+  overflow: hidden;
 }
 
 @media (width >= 769px) {
@@ -80,10 +84,10 @@
   display: none;
 }
 
-/* Card content styling */
+/* Left panel — first few elements (h4, description, image) get colored panel treatment */
 .tabs-promo-gallery .carousel-item h4 {
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-xl);
+  font-size: var(--heading-font-size-l);
   font-weight: 700;
   line-height: 1.0;
   color: var(--color-text-primary);
@@ -103,13 +107,15 @@
   border-radius: var(--border-radius-m);
 }
 
-/* CTA links as outlined buttons */
-.tabs-promo-gallery .carousel-item a {
+/* CTA links as outlined buttons — override EDS .button auto-styling */
+.tabs-promo-gallery .carousel-item a,
+.tabs-promo-gallery .carousel-item a.button {
   display: inline-block;
   padding: 12px 24px;
   border: 1px solid var(--color-text-primary);
   border-radius: var(--button-border-radius);
   color: var(--color-text-primary);
+  background-color: transparent;
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-xs);
   font-weight: var(--button-font-weight);
@@ -119,7 +125,8 @@
   transition: var(--button-transition);
 }
 
-.tabs-promo-gallery .carousel-item a:hover {
+.tabs-promo-gallery .carousel-item a:hover,
+.tabs-promo-gallery .carousel-item a.button:hover {
   background-color: var(--color-text-primary);
   color: var(--color-white);
 }

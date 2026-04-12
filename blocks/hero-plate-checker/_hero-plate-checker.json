@@ -1,0 +1,49 @@
+{
+  "definitions": [
+    {
+      "title": "Hero Plate Checker",
+      "id": "hero-plate-checker",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Hero Plate Checker",
+              "model": "hero-plate-checker"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hero-plate-checker",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Plate Preview Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt Text",
+          "value": "Plate preview"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Hero Content",
+          "description": "Title, vehicle types, input instructions, CTA links, and disclaimer",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

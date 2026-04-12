@@ -136,6 +136,26 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Light",
+            "value": "light"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Black",
+            "value": "black"
+          },
+          {
+            "name": "Near Black",
+            "value": "near-black"
+          },
+          {
+            "name": "Green",
+            "value": "green"
           }
         ]
       }
@@ -161,6 +181,25 @@
     ]
   },
   {
+    "id": "columns-cta-tiles",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "4",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "1",
+        "label": "Rows"
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
@@ -180,12 +219,58 @@
     ]
   },
   {
+    "id": "embed-social",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": "Show off your style"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "source",
+        "label": "Embed URL",
+        "description": "URL of the social media feed widget (e.g., SnapWidget embed URL)"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "hero-plate-checker",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Plate Preview Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "Plate preview"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Hero Content",
+        "description": "Title, vehicle types, input instructions, CTA links, and disclaimer",
+        "valueType": "string"
       }
     ]
   },
@@ -211,6 +296,26 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "promo-tab",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tabLabel",
+        "label": "Tab Label",
+        "description": "Category name shown on the tab (e.g., Business, Sports)"
+      },
+      {
+        "component": "richtext",
+        "name": "tabContent",
+        "value": "",
+        "label": "Tab Content",
+        "description": "Content for this tab: headings, descriptions, images, and CTA links. Use --- (horizontal rule) to separate multiple carousel items.",
         "valueType": "string"
       }
     ]

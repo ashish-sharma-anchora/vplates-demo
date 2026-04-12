@@ -68,8 +68,8 @@
   line-height: 1.4;
 }
 
-/* Hide the link text (whole tile is clickable) */
-.columns-cta-tiles .cta-tile p:last-of-type:has(a) {
+/* Override EDS auto-button styling — hide the button-styled link */
+.columns-cta-tiles .cta-tile .button-container {
   display: none;
 }
 

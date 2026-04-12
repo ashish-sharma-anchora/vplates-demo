@@ -13,8 +13,12 @@
       "button",
       "title",
       "hero",
+      "hero-plate-checker",
       "cards",
       "columns",
+      "columns-cta-tiles",
+      "tabs-promo-gallery",
+      "embed-social",
       "fragment"
     ]
   },
@@ -22,6 +26,12 @@
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "columns-cta-tiles",
+    "components": [
+      "column"
     ]
   },
   {
@@ -37,6 +47,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "tabs-promo-gallery",
+    "components": [
+      "promo-tab"
     ]
   }
 ]
