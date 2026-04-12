@@ -49,11 +49,14 @@ export default function decorate(block) {
   titleEl.classList.add('hero-plate-checker-title');
   titleEl.textContent = title;
 
-  // Plate display (large plate font text)
-  const plateDisplay = document.createElement('div');
-  plateDisplay.classList.add('hero-plate-checker-plate-text');
-  plateDisplay.textContent = activeVehicle.placeholder;
-  plateDisplay.style.cursor = 'text';
+  // Plate combo input (visible styled input — matches original markup)
+  const plateInput = document.createElement('input');
+  plateInput.type = 'text';
+  plateInput.spellcheck = false;
+  plateInput.maxLength = activeVehicle.maxLength;
+  plateInput.placeholder = activeVehicle.placeholder;
+  plateInput.classList.add('hero-plate-checker-combo-input');
+  plateInput.setAttribute('aria-label', activeVehicle.instructions);
 
   // Input group elements
   const labelEl = document.createElement('span');
@@ -68,14 +71,6 @@ export default function decorate(block) {
   inputGroup.classList.add('hero-plate-checker-input-group');
   inputGroup.appendChild(labelEl);
   inputGroup.appendChild(counter);
-
-  // Hidden input for plate combination
-  const plateInput = document.createElement('input');
-  plateInput.type = 'text';
-  plateInput.maxLength = activeVehicle.maxLength;
-  plateInput.placeholder = activeVehicle.placeholder;
-  plateInput.classList.add('hero-plate-checker-input-hidden');
-  plateInput.setAttribute('aria-label', activeVehicle.instructions);
 
   // CTA button
   const ctaBtn = document.createElement('a');
@@ -114,24 +109,19 @@ export default function decorate(block) {
       plateInput.value = '';
       labelEl.textContent = v.instructions;
       counter.textContent = `0/${v.maxLength}`;
-      plateDisplay.textContent = v.placeholder;
       plateTextDisplay.textContent = v.placeholder;
     });
     vehicleToggle.appendChild(btn);
   });
 
-  // Plate input event
+  // Plate input event — sync with plate preview and counter
   plateInput.addEventListener('input', () => {
     const val = plateInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     plateInput.value = val;
     counter.textContent = `${val.length}/${activeVehicle.maxLength}`;
-    plateDisplay.textContent = val || activeVehicle.placeholder;
     plateTextDisplay.textContent = val || activeVehicle.placeholder;
     ctaBtn.classList.toggle('disabled', val.length < 2);
   });
-
-  // Click plate display to focus input
-  plateDisplay.addEventListener('click', () => plateInput.focus());
 
   // Popular plates link
   const popularEl = document.createElement('p');
@@ -151,9 +141,8 @@ export default function decorate(block) {
   formCol.classList.add('hero-plate-checker-form');
   formCol.appendChild(titleEl);
   formCol.appendChild(vehicleToggle);
-  formCol.appendChild(plateDisplay);
-  formCol.appendChild(inputGroup);
   formCol.appendChild(plateInput);
+  formCol.appendChild(inputGroup);
   formCol.appendChild(ctaBtn);
   formCol.appendChild(popularEl);
 

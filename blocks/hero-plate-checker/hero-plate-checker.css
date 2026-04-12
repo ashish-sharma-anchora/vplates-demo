@@ -62,7 +62,7 @@
     max-width: 500px;
   }
 
-  .hero-plate-checker-plate-text {
+  .hero-plate-checker-combo-input {
     font-size: 60px;
     max-width: 340px;
   }
@@ -140,8 +140,16 @@
   color: var(--color-white);
 }
 
-/* Plate text display (large plate font — acts as the input display) */
-.hero-plate-checker-plate-text {
+/* Plate combo input — visible styled input matching original markup */
+.hero-plate-checker-combo-input {
+  display: block;
+  outline: 0;
+  width: 100%;
+  max-width: 315px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 2px solid var(--color-brand-green);
   font-family: var(--heading-font-family);
   font-size: 40px;
   font-weight: 700;
@@ -151,22 +159,10 @@
   text-transform: uppercase;
   margin-top: 15px;
   padding: 8px 0;
-  border-bottom: 2px solid var(--color-brand-green);
-  max-width: 315px;
 }
 
-.hero-plate-checker-plate-text:empty::before {
-  content: attr(data-placeholder);
+.hero-plate-checker-combo-input::placeholder {
   color: #5a5a5a;
-}
-
-/* Hidden input — functional but invisible */
-.hero-plate-checker-input-hidden {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
 }
 
 /* Input group (label + counter) */
