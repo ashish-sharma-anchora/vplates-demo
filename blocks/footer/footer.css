@@ -101,15 +101,13 @@ footer .footer .section:first-child p:first-of-type {
   }
 }
 
-footer .footer .section:first-child p:first-of-type img {
+footer .footer .section:first-child p:first-of-type svg {
   display: block;
   width: 23px;
   height: 23px;
-  filter: brightness(0) invert(1);
 }
 
-footer .footer .section:first-child p:first-of-type img[alt*="ouTube"],
-footer .footer .section:first-child p:first-of-type img[alt*="outube"] {
+footer .footer .section:first-child p:first-of-type a[href*="youtube"] svg {
   width: 103px;
 }
 
@@ -133,11 +131,10 @@ footer .footer .section:first-child p:last-of-type a:hover {
   opacity: 0.5;
 }
 
-footer .footer .section:first-child p:last-of-type img {
+footer .footer .section:first-child p:last-of-type svg {
   display: block;
   height: 35px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 
 /* Bottom section — last .section (legal links) */
