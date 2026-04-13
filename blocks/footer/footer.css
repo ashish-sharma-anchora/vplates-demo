@@ -16,29 +16,33 @@ footer .footer a:any-link {
   text-decoration: none;
 }
 
-/* Top section — first .section inside footer */
+/* Top section */
 footer .footer .section:first-child {
   max-width: var(--content-extra-wide-max-width);
   margin: 0 auto;
   padding: 60px 25px;
 }
 
+footer .footer .section:first-child .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (width >= 769px) {
   footer .footer .section:first-child .default-content-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
   }
 }
 
-/* Nav links */
+/* Nav links — left column */
 footer .footer .section:first-child ul {
   list-style: none;
   display: block;
   margin: 0;
   padding: 0;
   min-width: 200px;
+  flex-shrink: 0;
 }
 
 @media (width >= 769px) {
@@ -87,12 +91,14 @@ footer .footer .section:first-child ul li a:hover::after {
   color: var(--color-brand-green);
 }
 
-/* Social icons paragraph */
+/* Social icons — centered in remaining space */
 footer .footer .section:first-child p:first-of-type {
   display: flex;
   align-items: center;
   gap: 30px;
   margin: 60px 0 0;
+  flex: 1;
+  justify-content: center;
 }
 
 @media (width >= 769px) {
@@ -109,21 +115,21 @@ footer .footer .section:first-child p:first-of-type svg {
 
 footer .footer .section:first-child p:first-of-type a[href*="youtube"] svg {
   width: 103px;
+  height: auto;
 }
 
-/* Government logos paragraph */
+/* Government logos — far right */
 footer .footer .section:first-child p:last-of-type {
   display: flex;
   align-items: center;
   gap: 36px;
   margin: 40px 0 0;
+  flex-shrink: 0;
 }
 
 @media (width >= 769px) {
   footer .footer .section:first-child p:last-of-type {
-    width: 100%;
-    margin-top: 40px;
-    justify-content: flex-end;
+    margin: 0;
   }
 }
 
@@ -137,7 +143,7 @@ footer .footer .section:first-child p:last-of-type svg {
   width: auto;
 }
 
-/* Bottom section — last .section (legal links) */
+/* Bottom section — legal links */
 footer .footer .section:last-child {
   border-top: 2px solid #1e1b1b;
 }
@@ -146,9 +152,9 @@ footer .footer .section:last-child ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  max-width: var(--content-extra-wide-max-width);
   margin: 0 auto;
   padding: 23px 25px;
-  max-width: var(--content-extra-wide-max-width);
 }
 
 footer .footer .section:last-child ul li {
