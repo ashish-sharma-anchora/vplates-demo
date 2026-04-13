@@ -6,15 +6,14 @@
 .tabs-promo-gallery-container .tabs-promo-gallery-wrapper {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: var(--spacing-xxxl) var(--spacing-xl);
+  padding: 0 var(--spacing-xl);
 }
 
-/* Tab navigation */
+/* Tab navigation — centered, large text, green underline on active */
 .tabs-promo-gallery .tabs-nav {
   display: flex;
-  gap: 0;
-  border-bottom: 1px solid var(--color-light-grey);
-  margin-bottom: var(--spacing-xxl);
+  justify-content: center;
+  padding: 98px 0 45px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -24,29 +23,30 @@
 }
 
 .tabs-promo-gallery .tabs-nav-btn {
+  appearance: none;
   background: transparent;
-  border: none;
+  border: 0;
   border-bottom: 2px solid transparent;
-  padding: var(--spacing-s) var(--spacing-l);
+  padding: 0;
+  margin: 0 20px;
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
+  font-size: 24px;
   font-weight: 400;
   color: var(--color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
-  transition: color var(--transition-base), border-color var(--transition-base);
-  min-width: max-content;
+  outline: 0;
   text-transform: none;
 }
 
 .tabs-promo-gallery .tabs-nav-btn:hover {
-  color: var(--color-text-primary);
+  border-bottom-color: var(--color-brand-green);
 }
 
 .tabs-promo-gallery .tabs-nav-btn.active {
   font-weight: 700;
   color: var(--color-text-primary);
-  border-bottom-color: var(--color-text-primary);
+  border-bottom-color: var(--color-brand-green);
 }
 
 /* Hidden cells */
@@ -89,14 +89,15 @@
 
 /* Card — two-column split layout */
 .tabs-promo-gallery .tabs-card {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   min-height: 400px;
 }
 
 @media (width >= 769px) {
   .tabs-promo-gallery .tabs-card {
-    grid-template-columns: 45% 1fr;
+    flex-direction: row;
   }
 }
 
@@ -107,6 +108,14 @@
   z-index: 1;
   overflow: visible;
   min-height: 350px;
+  flex-shrink: 0;
+}
+
+@media (width >= 769px) {
+  .tabs-promo-gallery .tabs-panel-left {
+    margin-left: 5%;
+    width: 40%;
+  }
 }
 
 .tabs-promo-gallery .tabs-panel-left h1,
@@ -151,12 +160,13 @@
 
 /* Right panel — content + CTA */
 .tabs-promo-gallery .tabs-panel-right {
-  padding: 26px;
+  padding: 20px 9% 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
   z-index: 1;
+  flex: 1;
 }
 
 .tabs-promo-gallery .tabs-panel-right p {
