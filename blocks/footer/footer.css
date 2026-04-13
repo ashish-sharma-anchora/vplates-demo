@@ -1,76 +1,184 @@
-/* Footer — VPlates branding */
+/* stylelint-disable no-descending-specificity */
+
 footer {
   background-color: var(--color-black);
   color: var(--color-white);
+  font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.63;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: var(--content-wide-max-width);
-  padding: var(--spacing-jumbo) var(--spacing-xl);
-}
-
 footer .footer p {
   margin: 0;
-  color: var(--color-white);
 }
 
-footer .footer a:any-link {
-  color: var(--color-white);
-  text-decoration: none;
-  transition: color var(--transition-base);
+/* Top section — nav links, social icons, government logos */
+footer .footer > div:first-child {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--content-extra-wide-max-width);
+  margin: 0 auto;
+  padding: 60px 25px;
 }
 
-footer .footer a:hover {
-  color: var(--color-brand-green);
-  text-decoration: none;
+@media (width >= 769px) {
+  footer .footer > div:first-child {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-footer .footer ul {
+/* Nav links */
+footer .footer > div:first-child > ul {
   list-style: none;
-  padding: 0;
+  display: block;
   margin: 0;
+  padding: 0;
+  min-width: 200px;
 }
 
-footer .footer ul li {
-  margin-bottom: var(--spacing-xs);
+@media (width >= 769px) {
+  footer .footer > div:first-child > ul {
+    margin-right: 30px;
+  }
 }
 
-/* Footer nav links with arrow indicator */
-footer .footer ul li a::after {
+footer .footer > div:first-child > ul > li {
+  list-style: none;
+  display: block;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+footer .footer > div:first-child > ul > li:last-child {
+  margin-bottom: 0;
+}
+
+footer .footer > div:first-child > ul > li > a {
+  color: var(--color-white);
+  text-decoration: none;
+  display: block;
+  position: relative;
+  outline: 0;
+  padding: 0 40px 0 0;
+  font-weight: 700;
+}
+
+footer .footer > div:first-child > ul > li > a::after {
   content: '\2192';
-  margin-left: var(--spacing-xs);
-  font-size: var(--body-font-size-xxxs);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--color-mid-grey);
+  font-size: 18px;
+  font-weight: 400;
 }
 
-/* Footer images (social icons, gov logos) */
-footer .footer img {
-  height: 24px;
+footer .footer > div:first-child > ul > li > a:hover {
+  color: var(--color-brand-green);
+}
+
+footer .footer > div:first-child > ul > li > a:hover::after {
+  color: var(--color-brand-green);
+}
+
+/* Social icons paragraph */
+footer .footer > div:first-child > p:first-of-type {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 60px 0 0;
+}
+
+@media (width >= 769px) {
+  footer .footer > div:first-child > p:first-of-type {
+    margin: 0;
+  }
+}
+
+footer .footer > div:first-child > p:first-of-type a {
+  outline: 0;
+  display: block;
+}
+
+footer .footer > div:first-child > p:first-of-type img {
+  display: block;
+  width: 23px;
+  height: 23px;
+  filter: brightness(0) invert(1);
+}
+
+footer .footer > div:first-child > p:first-of-type img[alt*="ouTube"],
+footer .footer > div:first-child > p:first-of-type img[alt*="outube"] {
+  width: 103px;
+}
+
+/* Government logos paragraph */
+footer .footer > div:first-child > p:last-of-type {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  margin: 40px 0 0;
+}
+
+@media (width >= 769px) {
+  footer .footer > div:first-child > p:last-of-type {
+    order: 0;
+    width: 100%;
+    margin-top: 40px;
+    justify-content: flex-end;
+  }
+}
+
+footer .footer > div:first-child > p:last-of-type a {
+  outline: 0;
+  display: block;
+}
+
+footer .footer > div:first-child > p:last-of-type a:hover {
+  opacity: 0.5;
+}
+
+footer .footer > div:first-child > p:last-of-type img {
+  display: block;
+  height: 35px;
   width: auto;
   filter: brightness(0) invert(1);
 }
 
-/* Legal links row */
+/* Bottom section — legal links */
 footer .footer > div:last-child {
-  padding-top: var(--spacing-l);
-  border-top: 1px solid var(--color-dark-charcoal);
+  border-top: 2px solid #1e1b1b;
 }
 
-footer .footer > div:last-child ul {
+footer .footer > div:last-child > ul {
+  list-style: none;
   display: flex;
-  gap: var(--spacing-xxl);
   flex-wrap: wrap;
+  max-width: var(--content-extra-wide-max-width);
+  margin: 0 auto;
+  padding: 23px 25px;
 }
 
-footer .footer > div:last-child ul li a::after {
-  display: none;
+footer .footer > div:last-child > ul > li {
+  list-style: none;
+  display: block;
+  margin: 0 10px;
 }
 
-@media (width >= 769px) {
-  footer .footer > div {
-    padding: var(--spacing-jumbo) 32px;
-  }
+footer .footer > div:last-child > ul > li > a {
+  color: #7b7979;
+  text-decoration: none;
+  outline: 0;
+  padding: 5px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+footer .footer > div:last-child > ul > li > a:hover {
+  color: var(--color-brand-green);
 }
