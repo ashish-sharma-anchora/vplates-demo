@@ -178,6 +178,10 @@ header nav .nav-brand img {
 }
 
 @media (width >= 1441px) {
+  header .nav-brand {
+    margin-right: 30px;
+  }
+
   header nav .nav-brand img {
     width: 150px;
     height: 36px;
@@ -234,6 +238,18 @@ header nav .nav-sections ul > li {
   padding: 0;
   margin: 0 5px;
   text-align: center;
+}
+
+@media (width >= 1080px) {
+  header nav .nav-sections ul > li {
+    margin: 0 10px;
+  }
+}
+
+@media (width >= 1441px) {
+  header nav .nav-sections ul > li {
+    margin: 0 16px;
+  }
 }
 
 header nav .nav-sections ul > li > a,
